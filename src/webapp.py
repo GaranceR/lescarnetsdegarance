@@ -11,13 +11,6 @@ def home():
 def recipes():
   return "Here you can find a lot of cool recipes"
 
-@app.route('/recipes/breakfast/pancakes/')
-def pancakes():
-  start = '<img src="'
-  url = url_for('static', filename='pancakes.PNG')
-  end = '">'
-  return start+url+end,200
-
 @app.route('/restaurants/')
 def restaurants():
   return "Discover where to go next for a brunch"
@@ -25,6 +18,73 @@ def restaurants():
 @app.route('/happiness/')
 def happiness():
   return "Read about changing your mindset to be happier"
+
+#Route defining Level #2 of Recipes
+
+@app.route('/recipes/breakfast/')
+def breakfast():
+  return "Kick start your day and try some of those awesome recipes for breakfast!"
+
+@app.route('/recipes/lunch/')
+def lunch():
+  return "Pick some ideas for a creative lunch time!"
+
+@app.route('/recipes/snacks/')
+def snacks():
+  return "Hungry? Try some of those snacks ideas!"
+
+@app.route('/recipes/dinner/')
+def dinner():
+  return "Find here some cool recipes for your dinner!"
+
+@app.route('/recipes/ingredients/')
+def ingredients():
+  return "Discover the different Food Groups :"
+
+#Route defining Level #3 Breakfast
+
+@app.route('/recipes/breakfast/pancakes/')
+def pancakes():
+  start = '<img src="'
+  url = url_for('static', filename='pancakes.PNG')
+  end = '">'
+  return start+url+end,200
+
+#Route defining Level #3 Snacks
+
+@app.route('/recipes/snacks/sweet/')
+def sweet():
+  return "Treat yourself with some of those sweet snack ideas!"
+
+@app.route('/recipes/snacks/dips/')
+def dips():
+  return "Try those dips for a quick apetizer!"
+
+#Route defining Level #3 Ingredients
+
+@app.route('/recipes/ingredients/carbs/')
+def carbs():
+  return "Carbs"
+
+@app.route('/recipes/ingredients/veggies/')
+def veggies():
+  return "Veggies"
+
+@app.route('/recipes/ingredients/fruits/')
+def fruits():
+  return "Fruits"
+
+@app.route('/recipes/ingredients/protein/')
+def protein():
+  return "Protein"
+
+@app.route('/recipes/ingredients/dairy/')
+def dairy():
+  return "Dairy"
+
+@app.route('/recipes/ingredients/healthyfats/')
+def healthyfats():
+  return "Healthy Fats"
 
 #Redirect
 
