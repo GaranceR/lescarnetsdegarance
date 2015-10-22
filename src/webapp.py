@@ -4,21 +4,25 @@ app = Flask(__name__)
 #Route defining Level #1
 
 @app.route('/')
+@app.route('/home/')
 def home():
-  return "Hi this is the homepage!"
+  return render_template('index.html')
 
 @app.route('/recipes/')
 def recipes():
- # return "Here you can find a lot of cool recipes"
   return render_template('recipes.html') 
   
 @app.route('/restaurants/')
 def restaurants():
-  return "Discover where to go next for a brunch"
+  return render_template('restaurants.html')
 
 @app.route('/happiness/')
 def happiness():
-  return "Read about changing your mindset to be happier"
+  return render_template('happiness.html')
+
+@app.route('/fitness/')
+def fitness():
+  return render_template('fitness.html')
 
 @app.route('/cats/')
 def cats():
@@ -28,28 +32,49 @@ def cats():
 
 @app.route('/recipes/breakfast/')
 def breakfast():
-#  return "Kick start your day and try some of those awesome recipes for breakfast!"
   return render_template('breakfast.html')
 
 @app.route('/recipes/lunch/')
 def lunch():
-#  return "Pick some ideas for a creative lunch time!"
   return render_template('lunch.html')
 
 @app.route('/recipes/snacks/')
 def snacks():
-#  return "Hungry? Try some of those snacks ideas!"
   return render_template('snacks.html')
 
 @app.route('/recipes/dinner/')
 def dinner():
-#  return "Find here some cool recipes for your dinner!"
   return render_template('dinner.html')
 
 @app.route('/recipes/ingredients/')
 def ingredients():
-#  return "Discover the different Food Groups :"
   return render_template('ingredients.html')
+
+#Route defining Level #2 of Restaurants
+
+@app.route('/restaurants/bordeaux/')
+def bordeaux():
+  return render_template('bordeaux.html')
+
+@app.route('/restaurants/berlin/')
+def berlin():
+  return "Berlin!"
+#  return render_template('berlin.html')
+
+@app.route('/restaurants/nyc/')
+def nyc():
+  return "NYC"
+#  return render_template('nyc.html')
+
+@app.route('/restaurants/edinburgh/')
+def edinburgh():
+  return "Edinburgh"
+#  return render_template('edinburgh.html')
+
+@app.route('/restaurants/amsterdam/')
+def amsterdam():
+  return "Amsterdam"
+#  return render_template('amsterdam.html')
 
 #Route defining Level #3 Breakfast
 
@@ -71,6 +96,18 @@ def sweet():
 def dips():
 #  return "Try those dips for a quick apetizer!"
   return render_template('dips.html')
+
+#Route defining Level #3 of Lunch
+
+@app.route('/recipes/lunch/salad/')
+def salad():
+  return render_template('salad.html')
+
+#Route defining Level #3 of Dinner
+
+@app.route('/recipes/dinner/soup/')
+def soup():
+  return render_template('soup.html')
 
 #Route defining Level #3 Ingredients
 

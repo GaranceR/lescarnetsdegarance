@@ -1,4 +1,15 @@
 {% extends "recipes.html" %}
+{#{% block title %} - Recipes{% endblock %}#}
 {% block content %}
-  <p>Hi! This is the ingredients page</p>
+  <ul class="menu" id="menu_ingredients">
+    <li><a href="{{ url_for('.carbs')}}">Carbs</a></li>
+    <li><a href="{{ url_for('.veggies')}}">Veggies</a></li>
+    <li><a href="{{ url_for('.fruits')}}">Fruits</a></li>
+    <li><a href="{{ url_for('.protein')}}">Protein</a></li>
+    <li><a href="{{ url_for('.dairy')}}">Dairy</a></li>
+    <li><a href="{{ url_for('.healthyfats')}}">Healthy Fats</a></li>
+  </ul>
+  <p>
+    Discover the different Food Groups
+  </p>
 {% endblock %}

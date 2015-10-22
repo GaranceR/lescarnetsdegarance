@@ -1,34 +1,67 @@
+/* General */
+
 body{
 font-family:"Calibri";
 }
 
-ul#menu_recipes li{
-display:inline;
-padding: 0 2em;
-line-height : 40px;
+/* Menus */
+
+.menu a:hover{
+text-decoration : underline;
 }
 
-ul#menu_recipes{
-height : 40px;
-margin : 2em 0 0 0;
+.menu li {
+display:inline;
+padding: 0 2em;
+}
+
+#menu_main li {
+line-height : 50px;
+}
+#menu_recipes li, #menu_ingredients li{
+line-height : 30px;
+}
+
+.menu {
+margin : 0.5em 0 0 0;
 padding : 0;
-background-color : yellow;
 border: 1px;
 list-style-type : none;
 text-align : center;
 text-transform : uppercase;
 }
 
-ul#menu_recipes a {
+#menu_main {
+height : 50px;
+background-color: #F75352;
+}
+
+#menu_recipes {
+height : 30px;
+background-color: yellow;
+}
+
+#menu_ingredients {
+height : 30px;
+background-color: #84d435;
+}
+
+.menu a {
 color : black;
 text-decoration : none;
 padding : 0 0.5em;
-font : 0.8em "Trebuchet MS";
+font-family : "Trebuchet MS";
 }
 
-ul#menu_recipes a:hover{
-text-decoration : underline;
+#menu_main a {
+font-size : 1em;
 }
+
+#menu_recipes a, #menu_ingredients a{
+font-size : 0.8em;
+}
+
+/* End Menus */
 
 h1{
   margin-bottom:30px;

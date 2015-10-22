@@ -1,0 +1,17 @@
+  {% extends "index.html" %}
+  {% block title %} - Restaurants{% endblock %}
+  {% block content_main %}
+  <ul class="menu" id="menu_recipes"> <!-- use css of menu recipes for now -->
+    <li><a href="{{ url_for('.bordeaux')}}">Bordeaux</a></li>
+    <li><a href="{{ url_for('.berlin')}}">Berlin</a></li>
+    <li><a href="{{ url_for('.nyc')}}">NYC</a></li>
+    <li><a href="{{ url_for('.edinburgh')}}">Edinburgh</a></li>
+    <li><a href="{{ url_for('.amsterdam')}}">Amsterdam</a></li>
+  </ul>
+  <div id="content">
+    {% block content %}
+    <p> Discover where to go next for a brunch 
+    </p>
+    {% endblock %}
+  </div>
+  {% endblock content_main %}

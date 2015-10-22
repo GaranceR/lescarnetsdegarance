@@ -1,4 +1,6 @@
 {% extends "recipes.html" %}
 {% block content %}
-  <p>Hi! This is the snacks page</p>
+  <p>Hungry? Try some of those snacks ideas!</p>
+  <li>Either <a href="{{ url_for('.sweet')}}">Sweet</a></li>
+  <li>Or some <a href="{{ url_for('.dips')}}">Dips</a></li>
 {% endblock %}

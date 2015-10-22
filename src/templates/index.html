@@ -1,0 +1,22 @@
+<!doctype html>
+<head>
+  {% block head %}
+    <title>{% block title %}{% endblock %} - Les carnets de Garance</title>
+    <link rel="stylesheet" href="/static/recipes.css"/>
+  {% endblock %}
+</head>
+<body>
+  <ul class="menu" id="menu_main">
+    <li><a href="{{ url_for('.home')}}">Home</a></li>
+    <li><a href="{{ url_for('.recipes')}}">Recipes</a></li>
+    <li><a href="{{ url_for('.restaurants')}}">Restaurants</a></li>
+    <li><a href="{{ url_for('.happiness')}}">Happiness</a></li>
+    <li><a href="{{ url_for('.fitness')}}">Fitness</a></li>
+  </ul>
+  <div id="content_main">
+    {% block content_main %}<p>Hi this is the homepage!</p>{% endblock content_main %}
+  </div>
+  <div id="footer">
+  </div>
+</body>
+</html>
