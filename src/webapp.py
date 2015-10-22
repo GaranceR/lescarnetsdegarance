@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, abort, request
+from flask import Flask, redirect, url_for, abort, request, render_template
 app = Flask(__name__)
 
 #Route defining Level #1
@@ -9,8 +9,9 @@ def home():
 
 @app.route('/recipes/')
 def recipes():
-  return "Here you can find a lot of cool recipes"
-
+ # return "Here you can find a lot of cool recipes"
+  return render_template('recipes.html') 
+  
 @app.route('/restaurants/')
 def restaurants():
   return "Discover where to go next for a brunch"
@@ -23,33 +24,38 @@ def happiness():
 
 @app.route('/recipes/breakfast/')
 def breakfast():
-  return "Kick start your day and try some of those awesome recipes for breakfast!"
+#  return "Kick start your day and try some of those awesome recipes for breakfast!"
+  return render_template('breakfast.html')
 
 @app.route('/recipes/lunch/')
 def lunch():
-  return "Pick some ideas for a creative lunch time!"
+#  return "Pick some ideas for a creative lunch time!"
+  return render_template('lunch.html')
 
 @app.route('/recipes/snacks/')
 def snacks():
-  return "Hungry? Try some of those snacks ideas!"
+#  return "Hungry? Try some of those snacks ideas!"
+  return render_template('snacks.html')
 
 @app.route('/recipes/dinner/')
 def dinner():
-  return "Find here some cool recipes for your dinner!"
+#  return "Find here some cool recipes for your dinner!"
+  return render_template('dinner.html')
 
 @app.route('/recipes/ingredients/')
 def ingredients():
-  return "Discover the different Food Groups :"
+#  return "Discover the different Food Groups :"
+  return render_template('ingredients.html')
 
 #Route defining Level #3 Breakfast
 
 @app.route('/recipes/breakfast/pancakes/')
 def pancakes():
-  start = '<img src="'
-  url = url_for('static', filename='pancakes.PNG')
-  end = '">'
-  return start+url+end,200
-
+  ingredients = ['2 eggs', '1 cup oats', '200g yoghurt']
+  toppings = ['Peanut butter','Blueberries','Banana','Raspberries','Honey','Chocolate','Nuts']
+  return render_template('pancakes.html',ingredients=ingredients,
+  toppings=toppings) 
+  
 #Route defining Level #3 Snacks
 
 @app.route('/recipes/snacks/sweet/')
@@ -144,10 +150,10 @@ def newsletter():
     return page, 200 
 
 #URL Variables
-
+@app.route("/myaccount/")
 @app.route("/myaccount/<name>")
-def myaccount(name):
-  return "Your name is %s" % name
+def myaccount(name=None):
+  return render_template('myaccount.html', name=name) 
 
 #URL Parameters : Account informations
 
@@ -156,7 +162,7 @@ def myaccount2():
   name = request.args.get('name','')
   email= request.args.get('email','')
   if name == '':
-    response_name = "You didn't enter your name"
+    response_name = "Hi!<br/> You didn't enter your name"
   else:
     response_name = "Hi!<br/> Your name is %s" % name
   if email == '': 

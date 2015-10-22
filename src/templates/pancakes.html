@@ -1,0 +1,19 @@
+<!doctype html>
+<body>
+  <h1>Healthy Pancakes Recipe</h1>
+  <h2>Ingredients</h2>
+  <ul>
+    {% for item in ingredients %}
+      <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+  <h2>Toppings</h2>
+  <ul>
+    {% for item in toppings %}
+      <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+  <img src="/static/pancakes.PNG" alt="A stack
+  of healthy pancakes" title="A stack of healthy pancakes"/>
+</body>
+</html>
