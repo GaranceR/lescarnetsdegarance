@@ -1,5 +1,6 @@
-<!doctype html>
-<body>
+{% extends "recipes.html" %}
+{% block content %}
+  <div class="left">
   <h1>Healthy Pancakes Recipe</h1>
   <h2>Ingredients</h2>
   <ul>
@@ -8,12 +9,18 @@
     {% endfor %}
   </ul>
   <h2>Toppings</h2>
-  <ul>
-    {% for item in toppings %}
-      <li>{{ item }}</li>
-    {% endfor %}
-  </ul>
-  <img src="/static/pancakes.PNG" alt="A stack
+  <p>
+    <ul>
+     {% for item in toppings %}
+       <li>{{ item }}</li>
+     {% endfor %}
+     </ul>
+  </p>
+  </div>
+  <div>
+  <p>
+    <img class="main_picture" src="/static/pancakes.PNG" alt="A stack
   of healthy pancakes" title="A stack of healthy pancakes"/>
-</body>
-</html>
+  </p>
+  </div>
+{% endblock %}

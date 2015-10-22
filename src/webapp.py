@@ -20,6 +20,10 @@ def restaurants():
 def happiness():
   return "Read about changing your mindset to be happier"
 
+@app.route('/cats/')
+def cats():
+  return render_template('cats.html')
+
 #Route defining Level #2 of Recipes
 
 @app.route('/recipes/breakfast/')
@@ -52,7 +56,7 @@ def ingredients():
 @app.route('/recipes/breakfast/pancakes/')
 def pancakes():
   ingredients = ['2 eggs', '1 cup oats', '200g yoghurt']
-  toppings = ['Peanut butter','Blueberries','Banana','Raspberries','Honey','Chocolate','Nuts']
+  toppings = ['Banana','Blueberries','Fig','Raspberries','Honey','Chocolate','Nuts']
   return render_template('pancakes.html',ingredients=ingredients,
   toppings=toppings) 
   
@@ -60,37 +64,45 @@ def pancakes():
 
 @app.route('/recipes/snacks/sweet/')
 def sweet():
-  return "Treat yourself with some of those sweet snack ideas!"
+#  return "Treat yourself with some of those sweet snack ideas!"
+  return render_template('sweet.html')
 
 @app.route('/recipes/snacks/dips/')
 def dips():
-  return "Try those dips for a quick apetizer!"
+#  return "Try those dips for a quick apetizer!"
+  return render_template('dips.html')
 
 #Route defining Level #3 Ingredients
 
 @app.route('/recipes/ingredients/carbs/')
 def carbs():
-  return "Carbs"
+#  return "Carbs"
+  return render_template('carbs.html')
 
 @app.route('/recipes/ingredients/veggies/')
 def veggies():
-  return "Veggies"
+# return "Veggies"
+  return render_template('veggies.html')
 
 @app.route('/recipes/ingredients/fruits/')
 def fruits():
-  return "Fruits"
+# return "Fruits"
+  return render_template('fruits.html')
 
 @app.route('/recipes/ingredients/protein/')
 def protein():
-  return "Protein"
+#  return "Protein"
+  return render_template('protein.html')
 
 @app.route('/recipes/ingredients/dairy/')
 def dairy():
-  return "Dairy"
+#  return "Dairy"
+  return render_template('dairy.html')
 
 @app.route('/recipes/ingredients/healthyfats/')
 def healthyfats():
-  return "Healthy Fats"
+#  return "Healthy Fats"
+  return render_template('healthyfats.html')
 
 #Redirect
 

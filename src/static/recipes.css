@@ -1,0 +1,45 @@
+body{
+font-family:"Calibri";
+}
+
+ul#menu_recipes li{
+display:inline;
+padding: 0 2em;
+line-height : 40px;
+}
+
+ul#menu_recipes{
+height : 40px;
+margin : 2em 0 0 0;
+padding : 0;
+background-color : yellow;
+border: 1px;
+list-style-type : none;
+text-align : center;
+text-transform : uppercase;
+}
+
+ul#menu_recipes a {
+color : black;
+text-decoration : none;
+padding : 0 0.5em;
+font : 0.8em "Trebuchet MS";
+}
+
+ul#menu_recipes a:hover{
+text-decoration : underline;
+}
+
+h1{
+  margin-bottom:30px;
+}
+
+.left {
+  float:left;
+  margin-left:95px;
+}
+
+.main_picture {
+  margin:0 75px 20px 75px;
+  float:right;
+}
