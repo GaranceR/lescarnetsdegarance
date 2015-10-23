@@ -9,7 +9,9 @@
     <li><a href="{{ url_for('.dairy')}}">Dairy</a></li>
     <li><a href="{{ url_for('.healthyfats')}}">Healthy Fats</a></li>
   </ul>
-  <p>
-    Discover the different Food Groups
-  </p>
+  {% block foodgroup %}
+    <p>
+     Discover the different Food Groups
+    </p>
+  {% endblock foodgroup %}
 {% endblock %}

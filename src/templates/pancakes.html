@@ -1,26 +1,17 @@
 {% extends "recipes.html" %}
-{% block content %}
-  <div class="left">
-  <h1>Healthy Pancakes Recipe</h1>
-  <h2>Ingredients</h2>
-  <ul>
-    {% for item in ingredients %}
-      <li>{{ item }}</li>
-    {% endfor %}
-  </ul>
-  <h2>Toppings</h2>
-  <p>
-    <ul>
-     {% for item in toppings %}
-       <li>{{ item }}</li>
-     {% endfor %}
-     </ul>
-  </p>
-  </div>
-  <div>
-  <p>
-    <img class="main_picture" src="/static/pancakes.PNG" alt="A stack
-  of healthy pancakes" title="A stack of healthy pancakes"/>
-  </p>
-  </div>
-{% endblock %}
+
+    {% block title_recipe %} Healthy Pancakes Recipe {% endblock title_recipe %}
+    {% block recipe %}
+    {{ super() }}
+    <h2>Toppings</h2>
+    <p>
+      <ul>
+        {% for item in toppings %}
+          <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </p>
+  {% endblock recipe %}
+       {% block img_attr %} src="/static/pancakes.PNG" alt="A stack
+  of healthy pancakes" title="A stack of healthy pancakes"
+  {% endblock img_attr %}

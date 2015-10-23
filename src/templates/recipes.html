@@ -1,5 +1,5 @@
   {% extends "index.html" %}
-  {% block title %} - Recipes{% endblock %}
+  {% block title %}Recipes - {% endblock %}
   {% block content_main %}
   <ul class="menu" id="menu_recipes">
     <li><a href="{{ url_for('.breakfast')}}">Breakfast</a></li>
@@ -9,6 +9,30 @@
     <li><a href="{{ url_for('.ingredients')}}">Ingredients</a></li>
   </ul>
   <div id="content">
-    {% block content %} <p>Here you can find a lot of cool recipes</p>{% endblock %}
+
+{% block content %}
+   {% if currentpage == "recipes" %}
+   <p> Here you can find a lot of cool recipes </p>
+   {% else %}
+  <div class="left">
+  <h1> {% block title_recipe %}{% endblock title_recipe %} </h1>
+   {% block recipe %}
+   <h2>Ingredients</h2>
+    <ul>
+      {% for item in ingredients %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+   {% endblock recipe %} 
+  </div>
+  <div>
+    <p>
+      <img class="main_picture" {% block img_attr %} {% endblock img_attr %}/>
+    </p>
+  </div>
+   {% endif %}
+{% endblock %}
+  
   </div>
   {% endblock content_main %}
+

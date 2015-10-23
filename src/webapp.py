@@ -10,7 +10,7 @@ def home():
 
 @app.route('/recipes/')
 def recipes():
-  return render_template('recipes.html') 
+  return render_template('recipes.html', currentpage="recipes") 
   
 @app.route('/restaurants/')
 def restaurants():
@@ -54,11 +54,12 @@ def ingredients():
 
 @app.route('/restaurants/bordeaux/')
 def bordeaux():
-  return render_template('bordeaux.html')
+  return "Bordeaux"
+#  return render_template('bordeaux.html')
 
 @app.route('/restaurants/berlin/')
 def berlin():
-  return "Berlin!"
+  return "Berlin"
 #  return render_template('berlin.html')
 
 @app.route('/restaurants/nyc/')
@@ -113,32 +114,26 @@ def soup():
 
 @app.route('/recipes/ingredients/carbs/')
 def carbs():
-#  return "Carbs"
   return render_template('carbs.html')
 
 @app.route('/recipes/ingredients/veggies/')
 def veggies():
-# return "Veggies"
   return render_template('veggies.html')
 
 @app.route('/recipes/ingredients/fruits/')
 def fruits():
-# return "Fruits"
   return render_template('fruits.html')
 
 @app.route('/recipes/ingredients/protein/')
 def protein():
-#  return "Protein"
   return render_template('protein.html')
 
 @app.route('/recipes/ingredients/dairy/')
 def dairy():
-#  return "Dairy"
   return render_template('dairy.html')
 
 @app.route('/recipes/ingredients/healthyfats/')
 def healthyfats():
-#  return "Healthy Fats"
   return render_template('healthyfats.html')
 
 #Redirect
