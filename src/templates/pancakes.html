@@ -1,8 +1,7 @@
 {% extends "recipes.html" %}
 
     {% block title_recipe %} Healthy Pancakes Recipe {% endblock title_recipe %}
-    {% block recipe %}
-    {{ super() }}
+    {% block addings %}
     <h2>Toppings</h2>
     <p>
       <ul>
@@ -11,7 +10,15 @@
         {% endfor %}
       </ul>
     </p>
-  {% endblock recipe %}
-       {% block img_attr %} src="/static/pancakes.PNG" alt="A stack
+    {% endblock addings %}
+    {% block directions %}
+    Super easy : Just mix the ingredients together and
+    that's your batter! I put here a list of toppings that I added to mine, but
+    you can use every topping in your cupboard! Be creative!
+    {% endblock directions %}
+    {% block recipe %}
+    {{ super() }}
+    {% endblock recipe %}
+    {% block img_attr %} src="/static/pancakes.PNG" alt="A stack
   of healthy pancakes" title="A stack of healthy pancakes"
-  {% endblock img_attr %}
+    {% endblock img_attr %}

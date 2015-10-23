@@ -1,4 +1,12 @@
 {% extends "ingredients.html" %}
-  {% block foodgroup %}
-    <h1> Healthy fats </h1>
-  {% endblock foodgroup %}
+{% block title_ingredients %} Healthy fats {% endblock title_ingredients %}
+{% block description %} Description Healthy fats {% endblock description %}
+{% block foodgroup %}
+  {{ super() }} <!-- Examples to add in webapp.py in diff. routes descriptions -->
+{% endblock foodgroup %}
+
+<!-- IMAGE to change later, just to test-->
+
+{% block img_attr %}
+  src="/static/healthy-carbs.jpg" alt="Healthy carbs" title="Healthy carbs"
+{% endblock img_attr %}

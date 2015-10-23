@@ -70,9 +70,14 @@ h1{
 .left {
   float:left;
   margin-left:95px;
+  width:400px;
+  text-align:justify;
+}
+
+.right{
+  float:right;
 }
 
 .main_picture {
   margin:0 75px 20px 75px;
-  float:right;
 }

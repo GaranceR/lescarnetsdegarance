@@ -10,8 +10,29 @@
     <li><a href="{{ url_for('.healthyfats')}}">Healthy Fats</a></li>
   </ul>
   {% block foodgroup %}
+  {% if currentpage == "ingredients" %}
     <p>
      Discover the different Food Groups
     </p>
+  {% else %}
+  <div class="left">
+  <h1> {% block title_ingredients %}{% endblock title_ingredients %} </h1>
+  <p> {% block description %}{% endblock description %}</p>
+
+  <h2>Some examples</h2>
+    <ul>
+      {% for item in examples %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+
+  </div>
+  <div class="right">
+    <p>
+      <img class="main_picture" {% block img_attr %} {% endblock img_attr %}/>
+    </p>
+  </div>
+   {% endif %}
   {% endblock foodgroup %}
-{% endblock %}
+{% endblock content %}
+

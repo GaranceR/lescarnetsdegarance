@@ -1,4 +1,12 @@
 {% extends "ingredients.html" %}
-  {% block foodgroup %}
-    <h1> Carbohydrates </h1>
-  {% endblock foodgroup %}
+{% block title_ingredients %} Carbohydrates {% endblock title_ingredients %}
+{% block description %} Description Carbs {% endblock description %}
+{% block foodgroup %}
+  {{ super() }}
+{% endblock foodgroup %}
+
+<!-- to change later, just to test-->
+
+{% block img_attr %}
+  src="/static/healthy-carbs.jpg" alt="Healthy carbs" title="Healthy carbs"
+{% endblock img_attr %}

@@ -23,9 +23,12 @@
         <li>{{ item }}</li>
       {% endfor %}
     </ul>
+    {% block addings %}{% endblock addings %}
+    <h2>Directions</h2>
+    <p>{% block directions %}{% endblock directions %}</p>
    {% endblock recipe %} 
   </div>
-  <div>
+  <div class="right">
     <p>
       <img class="main_picture" {% block img_attr %} {% endblock img_attr %}/>
     </p>

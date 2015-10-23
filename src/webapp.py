@@ -48,7 +48,7 @@ def dinner():
 
 @app.route('/recipes/ingredients/')
 def ingredients():
-  return render_template('ingredients.html')
+  return render_template('ingredients.html',currentpage="ingredients")
 
 #Route defining Level #2 of Restaurants
 
@@ -114,7 +114,8 @@ def soup():
 
 @app.route('/recipes/ingredients/carbs/')
 def carbs():
-  return render_template('carbs.html')
+  examples = ['Brown rice', 'Wholemeal bread', 'Quinoa', 'Oats']
+  return render_template('carbs.html',examples=examples)
 
 @app.route('/recipes/ingredients/veggies/')
 def veggies():
