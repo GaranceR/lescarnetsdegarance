@@ -1,12 +1,13 @@
 {% extends "ingredients.html" %}
 {% block title_ingredients %} Healthy fats {% endblock title_ingredients %}
-{% block description %} Description Healthy fats {% endblock description %}
+{% block description %} Healthy fats provide the essential fatty acids, that
+the body can't produce on its own. They play an important role in cell
+structure, cell function & inflammation process. They are great for healthy
+skin & hair as well. {% endblock description %}
 {% block foodgroup %}
-  {{ super() }} <!-- Examples to add in webapp.py in diff. routes descriptions -->
+  {{ super() }} 
 {% endblock foodgroup %}
 
-<!-- IMAGE to change later, just to test-->
-
 {% block img_attr %}
-  src="/static/healthy-carbs.jpg" alt="Healthy carbs" title="Healthy carbs"
+  src="/static/healthyfats.jpg" alt="Healthy fats" title="Healthy fats"
 {% endblock img_attr %}

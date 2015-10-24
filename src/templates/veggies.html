@@ -1,12 +1,14 @@
 {% extends "ingredients.html" %}
 {% block title_ingredients %} Veggies & Legumes {% endblock title_ingredients %}
-{% block description %} Description Veggies {% endblock description %}
+{% block description %} Full of vitamines, minerals, fibre & phytochemicals
+(which helps our body to fight disease), Vegetables play an important role in
+our health. Pick minimal processed, wholesome
+ingredients as those will have a better
+nutritional value and no additives, fat or sugar. {% endblock description %}
 {% block foodgroup %}
-  {{ super() }} <!-- Examples to add in webapp.py in diff. routes descriptions -->
+  {{ super() }} 
 {% endblock foodgroup %}
 
-<!-- IMAGE to change later, just to test-->
-
 {% block img_attr %}
-  src="/static/healthy-carbs.jpg" alt="Healthy carbs" title="Healthy carbs"
+  src="/static/veggies.jpg" alt="Vegetables" title="Vegetables"
 {% endblock img_attr %}

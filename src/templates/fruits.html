@@ -1,12 +1,12 @@
 {% extends "ingredients.html" %}
 {% block title_ingredients %} Fruits {% endblock title_ingredients %}
-{% block description %} Description Fruits {% endblock description %}
+{% block description %} Fruits are a good source of vitamins, potassium &
+dietary fibre and they are that "something sweet" that are healthier than
+cupcakes ;). {% endblock description %}
 {% block foodgroup %}
-  {{ super() }} <!-- Examples to add in webapp.py in diff. routes descriptions -->
+  {{ super() }} 
 {% endblock foodgroup %}
 
-<!-- IMAGE to change later, just to test-->
-
 {% block img_attr %}
-  src="/static/healthy-carbs.jpg" alt="Healthy carbs" title="Healthy carbs"
+  src="/static/fruits.jpg" alt="Fruits" title="Fruits"
 {% endblock img_attr %}

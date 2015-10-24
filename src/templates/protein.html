@@ -1,12 +1,14 @@
 {% extends "ingredients.html" %}
-{% block title_ingredients %} Lean meats {% endblock title_ingredients %}
-{% block description %} Description Lean meats {% endblock description %}
+{% block title_ingredients %} Protein {% endblock title_ingredients %}
+{% block description %} Lean meats like Chicken, Turkey, Beef as well as Fish
+or Eggs are our bodies best sources of protein. They keep you full and
+curb sugar craving. They help recover after a workout or a long day and provide
+all the 9 "essentiel amino acids" (that the body can't produce on its own).
+{% endblock description %}
 {% block foodgroup %}
-  {{ super() }} <!-- Examples to add in webapp.py in diff. routes descriptions -->
+  {{ super() }} 
 {% endblock foodgroup %}
 
-<!-- IMAGE to change later, just to test-->
-
 {% block img_attr %}
-  src="/static/healthy-carbs.jpg" alt="Healthy carbs" title="Healthy carbs"
+  src="/static/protein1.jpg" alt="Food sources of Protein" title="Sources of Protein"
 {% endblock img_attr %}

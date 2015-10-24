@@ -102,7 +102,8 @@ def dips():
 
 @app.route('/recipes/lunch/salad/')
 def salad():
-  return render_template('salad.html')
+  ingredients = ['Green salad','Tomatoes','Feta','Smoked salmon','Soft-boiled Egg','Mais','Carrots','Taboule','Emmental']
+  return render_template('salad.html',ingredients=ingredients)
 
 #Route defining Level #3 of Dinner
 
@@ -119,23 +120,28 @@ def carbs():
 
 @app.route('/recipes/ingredients/veggies/')
 def veggies():
-  return render_template('veggies.html')
+  examples = ['Salad', 'Tomatoes', 'Broccoli', 'Aubergine']
+  return render_template('veggies.html',examples=examples)
 
 @app.route('/recipes/ingredients/fruits/')
 def fruits():
-  return render_template('fruits.html')
+  examples = ['Bananas', 'Strawberries', 'Apples', 'Figs']
+  return render_template('fruits.html',examples=examples)
 
 @app.route('/recipes/ingredients/protein/')
 def protein():
-  return render_template('protein.html')
+  examples = ['Fish', 'Poultry', 'Meat', 'Eggs']
+  return render_template('protein.html',examples=examples)
 
 @app.route('/recipes/ingredients/dairy/')
 def dairy():
-  return render_template('dairy.html')
+  examples = ['Milk', 'Yoghurt', 'Cheese']
+  return render_template('dairy.html',examples=examples)
 
 @app.route('/recipes/ingredients/healthyfats/')
 def healthyfats():
-  return render_template('healthyfats.html')
+  examples = ['Avocado', 'Olive oil', 'Nuts', 'Seeds']
+  return render_template('healthyfats.html',examples=examples)
 
 #Redirect
 

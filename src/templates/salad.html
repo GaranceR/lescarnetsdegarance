@@ -1,0 +1,14 @@
+{% extends "recipes.html" %}
+
+    {% block title_recipe %} Salad for a healthy lunch {% endblock title_recipe %}
+    {% block directions %}
+    Really easy: just display the ingredients as you like it to make it look
+    nice on your plate. "Eat the rainbow" :D Sharing this with your family
+    and/or friends make it taste even better! Bon appetit!
+    {% endblock directions %}
+    {% block recipe %}
+    {{ super() }}
+    {% endblock recipe %}
+    {% block img_attr %} src="/static/salads.jpg" alt="Salads for lunch"
+    title="Picnic of salads for lunch"
+    {% endblock img_attr %}

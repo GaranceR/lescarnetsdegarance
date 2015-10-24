@@ -70,7 +70,7 @@ h1{
 .left {
   float:left;
   margin-left:95px;
-  width:400px;
+  max-width:400px;
   text-align:justify;
 }
 
@@ -80,4 +80,5 @@ h1{
 
 .main_picture {
   margin:0 75px 20px 75px;
+  max-height:500px;
 }

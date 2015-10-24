@@ -1,12 +1,12 @@
 {% extends "ingredients.html" %}
 {% block title_ingredients %} Dairy {% endblock title_ingredients %}
-{% block description %} Description Dairy {% endblock description %}
+{% block description %} Milk and milk products contain protein and a good
+amount of calcium, which is important for bone health. Go ahead and add some
+milk to your smoothies or try a greek yoghurt topped with berries for a snack! {% endblock description %}
 {% block foodgroup %}
-  {{ super() }} <!-- Examples to add in webapp.py in diff. routes descriptions -->
+  {{ super() }} 
 {% endblock foodgroup %}
 
-<!-- IMAGE to change later, just to test-->
-
 {% block img_attr %}
-  src="/static/healthy-carbs.jpg" alt="Healthy carbs" title="Healthy carbs"
+  src="/static/dairy1.jpg" alt="Milk & Milk products" title="Milk & Milk products"
 {% endblock img_attr %}
