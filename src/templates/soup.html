@@ -1,0 +1,21 @@
+{% extends "recipes.html" %}
+
+    {% block title_recipe %} Carrot and Butternut Squash Soup {% endblock title_recipe %}
+    {% block directions %}
+    In a large pan, fry the onions in oil until translucent and soft. Add
+    squash and carrots and stir, cooking for a further 5 minutes. Add thyme and
+    season well with salt and freshly ground black pepper. Pour over stock and
+    bring to boil. Allow to simmer gently for 30 minutes, or until vegetables
+    are cooked through.</p><p>
+    Remove from heat and allow to cool slightly. Using a hand blender or a
+    liquidiser, blend to a smooth soup. If too thick, add a little more stock
+    until desired consistency is achieved.</p><p>
+    Divide soup into bowls and serve with a dollop of crème fraiche and
+    parsley.
+    {% endblock directions %}
+    {% block recipe %}
+    {{ super() }}
+    {% endblock recipe %}
+    {% block img_attr %} src="/static/soup.jpg" alt="Carrot and Butternut
+    Squash Soup" title="Carrot and Butternut Squash Soup"
+    {% endblock img_attr %}

@@ -1,5 +1,9 @@
 {% extends "recipes.html" %}
-{% block content %}
+
+{% block recipe %}
   <p>Pick some ideas for a creative lunch time!</p>
   <li>Try this awesome <a href="{{ url_for('.salad')}}">Salad</a></li>
 {% endblock %}
+{% block img_attr %} src="/static/lunch2.jpg" alt="Picture of a yummy
+lunch" title="Picture of a yummy lunch"
+{% endblock img_attr %}

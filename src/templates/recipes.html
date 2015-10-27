@@ -17,6 +17,20 @@
   <div class="left">
   <h1> {% block title_recipe %}{% endblock title_recipe %} </h1>
    {% block recipe %}
+   {% if currentpage == "sweet" %}
+   <h2>Base</h2>
+    <ul>
+      {% for item in base %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+   <h2>Filling</h2>
+    <ul>
+      {% for item in filling %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+   {% else %}
    <h2>Ingredients</h2>
     <ul>
       {% for item in ingredients %}
@@ -24,6 +38,7 @@
       {% endfor %}
     </ul>
     {% block addings %}{% endblock addings %}
+   {% endif %}
     <h2>Directions</h2>
     <p>{% block directions %}{% endblock directions %}</p>
    {% endblock recipe %} 

@@ -91,12 +91,15 @@ def pancakes():
 @app.route('/recipes/snacks/sweet/')
 def sweet():
 #  return "Treat yourself with some of those sweet snack ideas!"
-  return render_template('sweet.html')
+  base = ['2tbsp sunflower seeds, ground','2tbsp linseed (flax seeds), ground','2 Medjool dates']
+  filling = ['1cup coconut shreds','1 banana','3tbsp lemon juice','1tbsp sweetner of choice (raw honey, maple syrup)','handful of mint','1/2 tsp + 1/3 tsp matcha green tea']
+  return render_template('sweet.html',base=base,filling=filling,currentpage="sweet")
 
 @app.route('/recipes/snacks/dips/')
 def dips():
-#  return "Try those dips for a quick apetizer!"
-  return render_template('dips.html')
+#  return "Try those dips for a quick appetizer!"
+  ingredients = ['2 cups of soaked chickpeas','5tbsp of olive oil','4-6tbsp of water','ab. 10 basil leaves','the juice of 1 and 1/2 juicy lemons','2 tsp of tahini','1 tsp of cumin']
+  return render_template('dips.html',ingredients=ingredients)
 
 #Route defining Level #3 of Lunch
 
@@ -109,7 +112,8 @@ def salad():
 
 @app.route('/recipes/dinner/soup/')
 def soup():
-  return render_template('soup.html')
+  ingredients = ['2 onions chopped','1tbsp sunflower oil','1 butternut squash, peeled and diced','4 carrots, peeled and sliced','2 sprigs fresh thyme, leaves only','Salt and freshly crack black pepper','1.5 litres hot vegetable stock','Parsley for garnishing','Creme fraiche for garnishing']
+  return render_template('soup.html',ingredients=ingredients)
 
 #Route defining Level #3 Ingredients
 
