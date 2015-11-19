@@ -1,0 +1,79 @@
+ERROR | 2015-11-19 23:29:40,521 | app |  log_exception | Exception on /createaccount [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1473, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1666, in preprocess_request
+    rv = func()
+  File "webapp.py", line 65, in before_request
+    g.db = connect_db()
+NameError: global name 'connect_db' is not defined
+ERROR | 2015-11-19 23:29:44,601 | app |  log_exception | Exception on / [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1473, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1666, in preprocess_request
+    rv = func()
+  File "webapp.py", line 65, in before_request
+    g.db = connect_db()
+NameError: global name 'connect_db' is not defined
+ERROR | 2015-11-19 23:29:52,897 | app |  log_exception | Exception on / [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1473, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1666, in preprocess_request
+    rv = func()
+  File "webapp.py", line 65, in before_request
+    g.db = connect_db()
+NameError: global name 'connect_db' is not defined
+ERROR | 2015-11-19 23:38:11,596 | app |  log_exception | Exception on / [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1473, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1666, in preprocess_request
+    rv = func()
+  File "webapp.py", line 68, in before_request
+    g.db = connect_db()
+  File "webapp.py", line 50, in connect_db
+    return sqlite3.connect(app.config['database'])
+OperationalError: unable to open database file
+ERROR | 2015-11-19 23:44:50,225 | app |  log_exception | Exception on / [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1473, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1666, in preprocess_request
+    rv = func()
+  File "webapp.py", line 68, in before_request
+    g.db = connect_db()
+  File "webapp.py", line 50, in connect_db
+    return sqlite3.connect(app.config['database'])
+OperationalError: unable to open database file

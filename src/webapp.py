@@ -1,7 +1,85 @@
-from flask import Flask, redirect, url_for, abort, request, render_template
+#All the imports
+import sqlite3
+import ConfigParser
+import logging
+
+from logging.handlers import RotatingFileHandler
+from flask import Flask, redirect, url_for, abort, request, render_template, \
+session, g, flash
+
+#Create the app
 app = Flask(__name__)
+db_location = 'var/database.db'
+
+#Functions
+
+def init(app):
+  config = ConfigParser.ConfigParser()
+  try: 
+    config_location = "etc/config.cfg"
+    config.read(config_location)
+
+    app.config['debug'] = config.get("config","debug")
+    app.config['ip_address'] = config.get("config","ip_address")
+    app.config['port'] = config.get("config","port")
+    app.config['url'] = config.get("config","url")
+
+    app.config['database'] = config.get("config","database")
+    app.config['secret_key'] = config.get("config","secret_key")
+    app.config['username'] = config.get("config","username")
+    app.config['password'] = config.get("config","password")
+
+    app.config['log_file'] = config.get("logging","name")
+    app.config['log_location'] = config.get("logging","location")
+    app.config['log_level'] = config.get("logging","level")
+
+  except:
+    print "Could not read configs from:", config_location
+
+def logs(app):
+  log_pathname = app.config['log_location'] + app.config['log_file']
+  file_handler = RotatingFileHandler(log_pathname, maxBytes=1024*1024*10,backupCount=1024)
+  file_handler.setLevel(app.config['log_level'])
+  formatter = logging.Formatter("%(levelname)s | %(asctime)s | %(module)s |\
+  %(funcName)s | %(message)s")
+  file_handler.setFormatter(formatter)
+  app.logger.setLevel(app.config['log_level'])
+  app.logger.addHandler(file_handler)
+
+def connect_db():
+  return sqlite3.connect(app.config['database'])
+
+def get_db():
+  db = getattr(g, 'db', None)
+  if db is None:
+    db = sqlite3.connect(db.location)
+    g.db = db
+  return db
+
+def init_db():
+  with app.app_context():
+    db = get_db()
+    with app.open_resource('schema.sql', mode='r') as f:
+      db.cursor().executescript(f.read())
+    db.commit()
+
+@app.before_request
+def before_request():
+  g.db = connect_db()
+
+@app.teardown_request
+def teardown_request(exception):
+  db = getattr(g,'db', None)
+  if db is not None:
+    db.close()
 
 #Route defining Level #1
+
+@app.route('/display_users')
+def display_users():
+  cur = g.db.execute('SELECT name_user, email_user FROM user ORDER BY id_user ASC')
+  entries = [dict(name_user=row[0], email_user=row[1]) for row in cur.fetchall()]
+  return render_template('index.html',entries=entries)
 
 @app.route('/')
 @app.route('/home/')
@@ -155,9 +233,45 @@ def private():
   so redirect to login URL"""
   return redirect(url_for('login'))
 
-@app.route('/login')
+@app.route('/createaccount', methods=['POST'])
+def createaccount():
+  error = None
+  if request.method == 'POST':
+    cur = g.db.cursor()
+    #INSERT in DB
+    cur.execute('INSERT INTO user (name_user, password_user, email_user) VALUES \
+  (?,?,?)',
+    [request.form['username'],request.form['password'],request.form['email']])
+    g.db.commit()
+    flash('Your account was successfully created!')
+    return redirect(url_for('display_users'))
+  else:
+    return render_template('createaccount.html')
+
+@app.route('/login', methods=['POST','GET'])
 def login():
-  return "Here you would be ask for your login and password"
+  error = None
+  if request.method == 'POST':
+    print request.form #for me to see it in the console
+    username = request.form['username']
+    password = request.form['password']
+
+  query = 'SELECT * FROM user WHERE name_user = ?'
+  testname = query_db(query, [request.form['username']])
+  #if testname:
+
+ # else:
+    #error = "Sorry there is no account with this username. Make sure you spelt it right"
+    #elif password doesnt match
+    #error = "Sorry, your password isn't the one you provided. Try again."
+  msg = "Hi %s" % username + "<br/>It's nice to see you!"
+  return msg #return a template instead
+    #else:
+    #session['logged in'] = True
+    #flash('You just logged in')
+    #return redirect(url_for('home'))
+
+  return render_template('login.html',error=error)
 
 #Error handling
 
@@ -181,6 +295,7 @@ def newsletter():
     picture.save('static/uploads/picture.png')
     msg = "Hello %s" % name + "<br/> Thank you for signing up! A confirmation email has been sent to %s" % email + "."
     msg += "Your photo has been succesfully uploaded"
+    msg += "<img src='/static/uploads/picture.png' alt='your image'title='title of your image'/>"
     return msg
   else:
     page = '''
@@ -227,4 +342,9 @@ def myaccount2():
   return response_name + "<br/>" + response_email
 
 if __name__ == "__main__":
-  app.run(host='0.0.0.0',debug=True)
+  init(app)
+  logs(app)
+  app.run(
+    host=app.config['ip_address'],
+    port=int(app.config['port'])
+    )

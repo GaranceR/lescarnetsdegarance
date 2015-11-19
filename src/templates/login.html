@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+{% block title %}Login - {% endblock title %}
+
+{% block content_main %}
+<h2> Login </h2>
+
+<form action="{{ url_for('login')}}" method="post" name="form">
+<p>
+  <label for="username"> Username : </label>
+  <input type="text" name="username" id="username" />
+</p>
+<p>
+  <label for="password">Password :</label>
+  <input type="password" name="password" id="password"/>
+</p>
+<input type="submit" value="Login"/>
+
+{% if error %}
+<p>
+  {{error}}
+</p>
+{% endif %}
+
+{% endblock content_main %}
