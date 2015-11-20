@@ -1,2 +1,3 @@
-from datastorage import init_db
+from webapp import init_db
+
 init_db()

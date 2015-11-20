@@ -2,21 +2,23 @@
 import sqlite3
 import ConfigParser
 import logging
+import os
 
 from logging.handlers import RotatingFileHandler
 from flask import Flask, redirect, url_for, abort, request, render_template, \
 session, g, flash
+from contextlib import closing
 
 #Create the app
 app = Flask(__name__)
-db_location = 'var/database.db'
+#db_location = 'var/database.db'
 
 #Functions
 
 def init(app):
   config = ConfigParser.ConfigParser()
+  config_location = "etc/config.cfg"
   try: 
-    config_location = "etc/config.cfg"
     config.read(config_location)
 
     app.config['debug'] = config.get("config","debug")
@@ -47,18 +49,26 @@ def logs(app):
   app.logger.addHandler(file_handler)
 
 def connect_db():
+  #init(app)
+  #conn = sqlite3.connect(app.config['database'])
+  #conn.row_factory = sqlite3.Row
+  #return conn
   return sqlite3.connect(app.config['database'])
 
-def get_db():
-  db = getattr(g, 'db', None)
-  if db is None:
-    db = sqlite3.connect(db.location)
-    g.db = db
-  return db
+#def get_db():
+  #db = getattr(g, 'db', None)
+  #if db is None:
+   # db = sqlite3.connect(db.location)
+    #g.db = db
+  #return db
+  #if not hasattr(g, 'sqlite_db'):
+   #   g.sqlite_db = connect_db()
+   # return g.sqlite_db
 
 def init_db():
-  with app.app_context():
-    db = get_db()
+  with closing(connect_db()) as db:
+  #with app.app_context():
+  #db = get_db()
     with app.open_resource('schema.sql', mode='r') as f:
       db.cursor().executescript(f.read())
     db.commit()
