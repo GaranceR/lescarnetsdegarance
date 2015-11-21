@@ -49,7 +49,7 @@ def logs(app):
   app.logger.addHandler(file_handler)
 
 def connect_db():
-  #init(app)
+  init(app)
   #conn = sqlite3.connect(app.config['database'])
   #conn.row_factory = sqlite3.Row
   #return conn
@@ -243,7 +243,7 @@ def private():
   so redirect to login URL"""
   return redirect(url_for('login'))
 
-@app.route('/createaccount', methods=['POST'])
+@app.route('/createaccount', methods=['POST','GET'])
 def createaccount():
   error = None
   if request.method == 'POST':
@@ -256,7 +256,7 @@ def createaccount():
     flash('Your account was successfully created!')
     return redirect(url_for('display_users'))
   else:
-    return render_template('createaccount.html')
+    return render_template('createaccount.html',error=error)
 
 @app.route('/login', methods=['POST','GET'])
 def login():
