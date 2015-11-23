@@ -147,3 +147,297 @@ Traceback (most recent call last):
   File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/sessions.py", line 126, in _fail
     raise RuntimeError('the session is unavailable because no secret '
 RuntimeError: the session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+ERROR | 2015-11-23 14:48:21,000 | app |  log_exception | Exception on /createaccount [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "webapp.py", line 256, in createaccount
+    flash('Your account was successfully created!')
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/helpers.py", line 366, in flash
+    session['_flashes'] = flashes
+  File "/usr/local/lib/python2.7/site-packages/Werkzeug-0.10.4-py2.7.egg/werkzeug/local.py", line 341, in __setitem__
+    self._get_current_object()[key] = value
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/sessions.py", line 126, in _fail
+    raise RuntimeError('the session is unavailable because no secret '
+RuntimeError: the session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+ERROR | 2015-11-23 14:50:18,454 | app |  log_exception | Exception on /createaccount [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "webapp.py", line 256, in createaccount
+    flash('Your account was successfully created!')
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/helpers.py", line 366, in flash
+    session['_flashes'] = flashes
+  File "/usr/local/lib/python2.7/site-packages/Werkzeug-0.10.4-py2.7.egg/werkzeug/local.py", line 341, in __setitem__
+    self._get_current_object()[key] = value
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/sessions.py", line 126, in _fail
+    raise RuntimeError('the session is unavailable because no secret '
+RuntimeError: the session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+ERROR | 2015-11-23 14:53:20,443 | app |  log_exception | Exception on /createaccount [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "webapp.py", line 256, in createaccount
+    flash('Your account was successfully created!')
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/helpers.py", line 366, in flash
+    session['_flashes'] = flashes
+  File "/usr/local/lib/python2.7/site-packages/Werkzeug-0.10.4-py2.7.egg/werkzeug/local.py", line 341, in __setitem__
+    self._get_current_object()[key] = value
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/sessions.py", line 126, in _fail
+    raise RuntimeError('the session is unavailable because no secret '
+RuntimeError: the session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+ERROR | 2015-11-23 14:53:42,547 | app |  log_exception | Exception on /createaccount [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "webapp.py", line 256, in createaccount
+    flash('Your account was successfully created!')
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/helpers.py", line 366, in flash
+    session['_flashes'] = flashes
+  File "/usr/local/lib/python2.7/site-packages/Werkzeug-0.10.4-py2.7.egg/werkzeug/local.py", line 341, in __setitem__
+    self._get_current_object()[key] = value
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/sessions.py", line 126, in _fail
+    raise RuntimeError('the session is unavailable because no secret '
+RuntimeError: the session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+ERROR | 2015-11-23 14:54:12,936 | app |  log_exception | Exception on /createaccount [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "webapp.py", line 256, in createaccount
+    flash('Your account was successfully created!')
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/helpers.py", line 366, in flash
+    session['_flashes'] = flashes
+  File "/usr/local/lib/python2.7/site-packages/Werkzeug-0.10.4-py2.7.egg/werkzeug/local.py", line 341, in __setitem__
+    self._get_current_object()[key] = value
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/sessions.py", line 126, in _fail
+    raise RuntimeError('the session is unavailable because no secret '
+RuntimeError: the session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+ERROR | 2015-11-23 14:54:22,922 | app |  log_exception | Exception on /createaccount [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "webapp.py", line 256, in createaccount
+    flash('Your account was successfully created!')
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/helpers.py", line 366, in flash
+    session['_flashes'] = flashes
+  File "/usr/local/lib/python2.7/site-packages/Werkzeug-0.10.4-py2.7.egg/werkzeug/local.py", line 341, in __setitem__
+    self._get_current_object()[key] = value
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/sessions.py", line 126, in _fail
+    raise RuntimeError('the session is unavailable because no secret '
+RuntimeError: the session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+ERROR | 2015-11-23 14:56:25,130 | app |  log_exception | Exception on /createaccount [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "webapp.py", line 256, in createaccount
+    flash('Your account was successfully created!')
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/helpers.py", line 366, in flash
+    session['_flashes'] = flashes
+  File "/usr/local/lib/python2.7/site-packages/Werkzeug-0.10.4-py2.7.egg/werkzeug/local.py", line 341, in __setitem__
+    self._get_current_object()[key] = value
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/sessions.py", line 126, in _fail
+    raise RuntimeError('the session is unavailable because no secret '
+RuntimeError: the session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+ERROR | 2015-11-23 14:57:13,178 | app |  log_exception | Exception on /createaccount [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "webapp.py", line 256, in createaccount
+    flash('Your account was successfully created!')
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/helpers.py", line 366, in flash
+    session['_flashes'] = flashes
+  File "/usr/local/lib/python2.7/site-packages/Werkzeug-0.10.4-py2.7.egg/werkzeug/local.py", line 341, in __setitem__
+    self._get_current_object()[key] = value
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/sessions.py", line 126, in _fail
+    raise RuntimeError('the session is unavailable because no secret '
+RuntimeError: the session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+ERROR | 2015-11-23 14:58:34,818 | app |  log_exception | Exception on /createaccount [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "webapp.py", line 256, in createaccount
+    #flash('Your account was successfully created!')
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/helpers.py", line 366, in flash
+    session['_flashes'] = flashes
+  File "/usr/local/lib/python2.7/site-packages/Werkzeug-0.10.4-py2.7.egg/werkzeug/local.py", line 341, in __setitem__
+    self._get_current_object()[key] = value
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/sessions.py", line 126, in _fail
+    raise RuntimeError('the session is unavailable because no secret '
+RuntimeError: the session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+ERROR | 2015-11-23 15:14:36,408 | app |  log_exception | Exception on /createaccount [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "webapp.py", line 256, in createaccount
+    if request.method == 'POST':
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/helpers.py", line 366, in flash
+    session['_flashes'] = flashes
+  File "/usr/local/lib/python2.7/site-packages/Werkzeug-0.10.4-py2.7.egg/werkzeug/local.py", line 341, in __setitem__
+    self._get_current_object()[key] = value
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/sessions.py", line 126, in _fail
+    raise RuntimeError('the session is unavailable because no secret '
+RuntimeError: the session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+ERROR | 2015-11-23 15:20:28,219 | app |  log_exception | Exception on /createaccount [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "webapp.py", line 256, in createaccount
+    if request.method == 'POST':
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/helpers.py", line 366, in flash
+    session['_flashes'] = flashes
+  File "/usr/local/lib/python2.7/site-packages/Werkzeug-0.10.4-py2.7.egg/werkzeug/local.py", line 341, in __setitem__
+    self._get_current_object()[key] = value
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/sessions.py", line 126, in _fail
+    raise RuntimeError('the session is unavailable because no secret '
+RuntimeError: the session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+ERROR | 2015-11-23 15:24:27,793 | app |  log_exception | Exception on /createaccount [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "webapp.py", line 256, in createaccount
+    if request.method == 'POST':
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/helpers.py", line 366, in flash
+    session['_flashes'] = flashes
+  File "/usr/local/lib/python2.7/site-packages/Werkzeug-0.10.4-py2.7.egg/werkzeug/local.py", line 341, in __setitem__
+    self._get_current_object()[key] = value
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/sessions.py", line 126, in _fail
+    raise RuntimeError('the session is unavailable because no secret '
+RuntimeError: the session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+ERROR | 2015-11-23 15:29:15,887 | app |  log_exception | Exception on /createaccount [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "webapp.py", line 256, in createaccount
+    if request.method == 'POST':
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/helpers.py", line 366, in flash
+    session['_flashes'] = flashes
+  File "/usr/local/lib/python2.7/site-packages/Werkzeug-0.10.4-py2.7.egg/werkzeug/local.py", line 341, in __setitem__
+    self._get_current_object()[key] = value
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/sessions.py", line 126, in _fail
+    raise RuntimeError('the session is unavailable because no secret '
+RuntimeError: the session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+ERROR | 2015-11-23 15:37:07,548 | app |  log_exception | Exception on /createaccount [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "webapp.py", line 256, in createaccount
+    
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/helpers.py", line 366, in flash
+    session['_flashes'] = flashes
+  File "/usr/local/lib/python2.7/site-packages/Werkzeug-0.10.4-py2.7.egg/werkzeug/local.py", line 341, in __setitem__
+    self._get_current_object()[key] = value
+  File "/usr/local/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg/flask/sessions.py", line 126, in _fail
+    raise RuntimeError('the session is unavailable because no secret '
+RuntimeError: the session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.

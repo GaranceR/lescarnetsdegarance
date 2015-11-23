@@ -14,7 +14,18 @@
     <li><a href="{{ url_for('.fitness')}}">Fitness</a></li>
   </ul>
   <div id="content_main">
-    {% block content_main %}<p>Hi this is the homepage!</p>{% endblock content_main %}
+    {% block content_main %}<p>Hi this is the homepage!</p>
+    
+    {% if entries %}
+    {% for item in entries %}
+      <p>{{ item.name_user }}</p>
+    {% endfor %}
+    {% else %}
+      <p> Coucou pas d'entries today </p>
+    {% endif %}
+
+    
+    {% endblock content_main %}
   </div>
   <div id="footer">
   </div>
