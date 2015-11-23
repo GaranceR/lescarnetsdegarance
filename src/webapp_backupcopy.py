@@ -274,6 +274,7 @@ def login():
 
   query = 'SELECT * FROM user WHERE name_user = ?'
   testname = query_db(query, [request.form['username']])
+  # method query_db!!
   #if testname:
 
  # else:

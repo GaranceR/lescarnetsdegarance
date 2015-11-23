@@ -54,12 +54,16 @@ def connect_db():
   return conn
   #return sqlite3.connect(app.config['database'])
 
-
 def init_db():
   with closing(connect_db()) as db:
     with app.open_resource('schema.sql', mode='r') as f:
       db.cursor().executescript(f.read())
     db.commit()
+
+def get_db():
+  if not hasattr(g, 'sqlite_db'):
+    g.sqlite_db = connect_db()
+  return g.sqlite_db
 
 @app.before_request
 def before_request():
@@ -88,17 +92,37 @@ def display_users():
 def createaccount():
   #error = None
   if request.method == 'POST':
-    return "Hello"
-    cur = g.db.cursor()
+    #cur = g.db.cursor()
+    db = get_db()
     #INSERT in DB
-    cur.execute('INSERT INTO user (name_user, password_user, email_user) VALUES \
+    db.execute('INSERT INTO user (name_user, password_user, email_user) VALUES \
     (?,?,?)',[request.form['username'],request.form['password'],request.form['email']])
-    g.db.commit()
+    db.commit()
     #not working
-    #flash('Your account was successfully created!')
-    #return redirect(url_for('display_users'))
+    flash('Your account was successfully created!')
+    return redirect(url_for('display_users'))
   else:
     return render_template('createaccount.html')
+    
+@app.route('/login', methods = ['GET','POST'])
+def login():
+  error = None
+  if request.method == 'POST':
+    if request.form['username'] != app.config['username']:
+      error = 'Invalid username'
+    if request.form['password'] != app.config['password']:
+      error += 'Invalid password'
+    else:
+      #session['logged_in'] = True
+      #flash('You were logged in')
+      return redirect(url_for('home'))
+  return render_template('login.html', error=error)
+
+@app.route('/logout')
+def logout():
+  session.pop('logged_in', None)
+  flash('You were logged out')
+  return redirect(url_for('display_users'))
 
 @app.route('/')
 @app.route('/home/')

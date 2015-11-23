@@ -21,9 +21,13 @@
       <p>{{ item.name_user }}</p>
     {% endfor %}
     {% else %}
-      <p> Coucou pas d'entries today </p>
+      <p> Coucou pas d'entries today SORRY</p>
     {% endif %}
 
+    <li><a href="{{ url_for('.createaccount') }}">Create an account</a></li>
+    <li><a href="{{ url_for('.login') }}">Log in</a></li>
+    <li><a href="{{ url_for('.logout') }}">Log out</a></li>
+    <li><a href="{{ url_for('.display_users') }}">Display users</a></li>
     
     {% endblock content_main %}
   </div>
