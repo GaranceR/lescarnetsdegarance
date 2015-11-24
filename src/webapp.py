@@ -349,6 +349,7 @@ if __name__ == "__main__":
   init(app)
   logs(app)
   app.run(
+    debug=app.config['debug'],
     host=app.config['ip_address'],
     port=int(app.config['port'])
     )
