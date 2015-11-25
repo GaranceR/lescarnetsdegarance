@@ -1,0 +1,10 @@
+{% extends "index.html"  %}
+{% block body %}
+<ul class= entries>
+{% for item in entries  %}
+<li>{{ item.name_user }}</li>
+{% else %}
+<li>No entries yet. SORRY</li>
+{% endfor %}
+</ul>
+{% endblock %}

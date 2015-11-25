@@ -26,7 +26,6 @@ def init(app):
     app.config['url'] = config.get("config","url")
 
     app.config['database'] = config.get("config","database")
-    app.config['secret_key'] = config.get("config","secret_key")
     app.config['username'] = config.get("config","username")
     app.config['password'] = config.get("config","password")
 
@@ -34,7 +33,7 @@ def init(app):
     app.config['log_location'] = config.get("logging","location")
     app.config['log_level'] = config.get("logging","level")
     
-    app.secret_key=app.config['secret_key']
+    app.secret_key = config.get("config","secret_key")
 
   except:
     print "Could not read configs from:", config_location
@@ -88,7 +87,7 @@ def display_users():
   g.db.commit()
   cur = g.db.execute('SELECT name_user, email_user FROM user ORDER BY id_user ASC')
   entries = [dict(name_user=row[0], email_user=row[1]) for row in cur.fetchall()]
-  return render_template('index.html',entries=entries)
+  return render_template('display_users.html',entries=entries)
 
 @app.route('/createaccount/', methods=['GET','POST'])
 def createaccount():
@@ -102,7 +101,8 @@ def createaccount():
     db.commit()
     #not working
     flash('Your account was successfully created!')
-    return redirect(url_for('display_users'))
+    #redirect TO CHANGE LATER
+    return redirect(url_for('display_users')) 
   else:
     return render_template('createaccount.html')
     
@@ -115,8 +115,8 @@ def login():
     if request.form['password'] != app.config['password']:
       error += 'Invalid password'
     else:
-      #session['logged_in'] = True
-      #flash('You were logged in')
+      session['logged_in'] = True
+      flash('You were logged in')
       return redirect(url_for('home'))
   return render_template('login.html', error=error)
 
