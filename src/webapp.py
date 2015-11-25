@@ -22,7 +22,8 @@ login_manager.init_app(app)
 def load_user(id_user):
   return User.get(id_user)
 
-class User(db.Model):
+class User(db.Model): 
+  #(flask.login.UserMixin)?
   __tablename__ = "user"
   id = db.Column('id_user',db.Integer,primary_key=True)
   username = db.Column('name_user',db.String(30),unique=True,index=True)
@@ -128,21 +129,39 @@ def display_users():
 
 @app.route('/createaccount/', methods=['GET','POST'])
 def createaccount():
+  if request.method == 'GET':
+    return render_template('createaccount.html')
   #error = None
   if request.method == 'POST':
-    #cur = g.db.cursor()
     db = get_db()
+    '''
     #INSERT in DB
     db.execute('INSERT INTO user (name_user, password_user, email_user) VALUES \
     (?,?,?)',[request.form['username'],request.form['password'],request.form['email']])
     db.commit()
-    #not working
+    '''
+    user = User(request.form['username', request.form['password'],\
+    request.form['email']])
+    db.session.add(user)
+    db.session.commit()
     flash('Your account was successfully created!')
-    #redirect TO CHANGE LATER
-    return redirect(url_for('display_users')) 
-  else:
-    return render_template('createaccount.html')
-    
+    return redirect(url_for('login')) 
+   
+@app.route('/login', methods = ['GET','POST'])
+def login():
+  form = LoginForm() 
+  #to install?
+  if form.validate_on_submit():
+    login_user(user)
+
+    flash('Logged in successfully.')
+
+    next = request.args.get('next')
+    if not next_is_valide(next):
+      return abort(400)
+    return redirect(next or url_for('index'))
+  return render_template('login.html',form=form)
+'''
 @app.route('/login', methods = ['GET','POST'])
 def login():
   error = None
@@ -156,13 +175,21 @@ def login():
       flash('You were logged in')
       return redirect(url_for('home'))
   return render_template('login.html', error=error)
+'''
 
+@app.route('/logout')
+@login_required
+def logout():
+  logout_user()
+  return redirect(url_for('index'))
+
+'''
 @app.route('/logout')
 def logout():
   session.pop('logged_in', None)
   flash('You were logged out')
   return redirect(url_for('display_users'))
-
+'''
 @app.route('/')
 @app.route('/home/')
 def home():

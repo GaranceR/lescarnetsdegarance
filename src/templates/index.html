@@ -15,7 +15,11 @@
   </ul>
   <div id="content_main">
     {% block content_main %}<p>Hi this is the homepage!</p>
-    
+
+    {% if current_user.is_authenticated %}
+      Hi {{ current_user.username }} !
+    {%  endif %}
+
     {% if not session.logged_in  %}
     <li><a href="{{ url_for('.createaccount') }}">Create an account</a></li>
     <li><a href="{{ url_for('.login') }}">Log in</a></li>
