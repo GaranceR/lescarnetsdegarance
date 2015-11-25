@@ -33,6 +33,8 @@ def init(app):
     app.config['log_file'] = config.get("logging","name")
     app.config['log_location'] = config.get("logging","location")
     app.config['log_level'] = config.get("logging","level")
+    
+    app.secret_key=app.config['secret_key']
 
   except:
     print "Could not read configs from:", config_location
@@ -349,6 +351,7 @@ if __name__ == "__main__":
   init(app)
   logs(app)
   app.run(
+    debug=app.config['debug'],
     host=app.config['ip_address'],
     port=int(app.config['port'])
     )
