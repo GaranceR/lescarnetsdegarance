@@ -7,28 +7,29 @@ import os
 from logging.handlers import RotatingFileHandler
 from flask import Flask, redirect, url_for, abort, request, render_template, \
 session, g, flash
-from flask.ext.login import LoginManager
+from flask.ext.login import LoginManager, UserMixin, login_required,\
+login_user, logout_user, current_user
+from flask.ext.wtf import Form
+
+from wtforms import TextField, HiddenField
 from contextlib import closing
+
+from urlparse import urlparse, urljoin
 
 #Create the app
 app = Flask(__name__)
 
+#Login
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-#Login
-
 @login_manager.user_loader
-def load_user(id_user):
-  return User.get(id_user)
+def load_user(id):
+  c = g.db.execute("SELECT id_user FROM user WHERE id_user = (?)", [id])
+  userid =c.fetchone()
+  return userid
 
-class User(db.Model): 
-  #(flask.login.UserMixin)?
-  __tablename__ = "user"
-  id = db.Column('id_user',db.Integer,primary_key=True)
-  username = db.Column('name_user',db.String(30),unique=True,index=True)
-  password = db.Column('password_user',db.String(30))
-  email = db.Column('email_user',db.String(30),unique=True,index=True)
+class User(UserMixin): 
 
   def __init__(self,username,password,email):
     self.username = username
@@ -44,8 +45,12 @@ class User(db.Model):
   def is_anonymous(self):
     return False
 
+  #might be useless? since we have load_user() ?
   def get_id(self):
-    return unicode(self.id)
+    c = g.db.execute('SELECT id_user FROM user WHERE name_user = (?)',\
+    [self.username])
+    id = c.fetchone()
+    return unicode(id)
 
   def __repr__(self):
     return '<User %r>' % (self.username)
@@ -91,7 +96,6 @@ def connect_db():
   conn = sqlite3.connect(app.config['database'])
   conn.row_factory = sqlite3.Row
   return conn
-  #return sqlite3.connect(app.config['database'])
 
 def init_db():
   with closing(connect_db()) as db:
@@ -114,15 +118,9 @@ def teardown_request(exception):
   if db is not None:
     db.close()
 
-#Route defining Level #1
-
 @app.route('/display_users')
 def display_users():
   cur = g.db.cursor()
-  #INSERT in DB
-  cur.execute('INSERT INTO user (name_user, password_user, email_user)\
-  VALUES ("test","pswd","email_test")')
-  g.db.commit()
   cur = g.db.execute('SELECT name_user, email_user FROM user ORDER BY id_user ASC')
   entries = [dict(name_user=row[0], email_user=row[1]) for row in cur.fetchall()]
   return render_template('display_users.html',entries=entries)
@@ -134,62 +132,85 @@ def createaccount():
   #error = None
   if request.method == 'POST':
     db = get_db()
-    '''
     #INSERT in DB
     db.execute('INSERT INTO user (name_user, password_user, email_user) VALUES \
     (?,?,?)',[request.form['username'],request.form['password'],request.form['email']])
     db.commit()
-    '''
-    user = User(request.form['username', request.form['password'],\
-    request.form['email']])
-    db.session.add(user)
-    db.session.commit()
     flash('Your account was successfully created!')
-    return redirect(url_for('login')) 
-   
+    return redirect(url_for('home')) 
+
+def is_safe_url(target):
+  ref_url = urlparse(request.host_url)
+  test_url = urlparse(urljoin(request.host_url, target))
+  return test_url.scheme in ('http','https') and \
+    ref_url.netloc == test_url.netloc
+
+def get_redirect_target():
+  for target in request.args.get('next'), request.referrer:
+    if not target:
+      continue
+    if is_safe_url(target):
+      return target
+
+class RedirectForm(Form):
+  next = HiddenField()
+
+  def __init__(self, *args, **kwargs):
+    Form.__init__(self, *args, **kwargs)
+    if not self.next.data:
+      self.next.data = get_redirect_target() or ''
+
+  def redirect(self, endpoint='index', **values):
+    if is_safe_url(self.next.data):
+      return redirect(self.next.data)
+    target = get_redirect_target()
+    return redirect(target or url_for(endpoint, **values))
+
+class LoginForm(RedirectForm):
+  username = TextField('Username')
+  password = TextField('Password')
+
 @app.route('/login', methods = ['GET','POST'])
 def login():
-  form = LoginForm() 
-  #to install?
-  if form.validate_on_submit():
-    login_user(user)
-
-    flash('Logged in successfully.')
-
+  error = None
+  form = LoginForm()
+  if request.method == 'POST':
+    username = request.form['username']
+    password = request.form['password']
+    #if form.validate_on_submit():
+    c = g.db.execute("SELECT name_user FROM user WHERE name_user = (?)",[username])
+    userexists = c.fetchone()
+    if userexists: 
+      c = g.db.execute("SELECT password_user FROM user WHERE \
+        password_user = (?)", [password])
+      passwcorrect = c.fetchone()
+    else:
+      error = 'Invalid username'
+    if passwcorrect:
+      user = User(username,password,'email')
+      login_user(user)
+        #session['logged_in'] = True 
+      flash('Logged in successfully.')
+      return redirect(url_for('home'))
+    else:
+      error = 'Invalid password'
+  return render_template('login.html',form=form,error=error)
+    '''
     next = request.args.get('next')
     if not next_is_valide(next):
       return abort(400)
     return redirect(next or url_for('index'))
-  return render_template('login.html',form=form)
-'''
-@app.route('/login', methods = ['GET','POST'])
-def login():
-  error = None
-  if request.method == 'POST':
-    if request.form['username'] != app.config['username']:
-      error = 'Invalid username'
-    if request.form['password'] != app.config['password']:
-      error += 'Invalid password'
-    else:
-      session['logged_in'] = True
-      flash('You were logged in')
-      return redirect(url_for('home'))
-  return render_template('login.html', error=error)
-'''
+    '''
 
 @app.route('/logout')
 @login_required
 def logout():
   logout_user()
-  return redirect(url_for('index'))
-
-'''
-@app.route('/logout')
-def logout():
-  session.pop('logged_in', None)
+  #session.pop('logged_in', None)
   flash('You were logged out')
-  return redirect(url_for('display_users'))
-'''
+  return redirect(url_for('home'))
+
+#Route defining Level #1
 @app.route('/')
 @app.route('/home/')
 def home():
