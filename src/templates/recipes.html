@@ -41,6 +41,19 @@
    {% endif %}
     <h2>Directions</h2>
     <p>{% block directions %}{% endblock directions %}</p>
+
+    <form action="{{ url_for('add_to_favs')}}" method="post" name="form">
+      <p>
+        <label for="user_id"> My user id :</label>
+        <input type="text" name="user_id" id="user_id" />
+      </p>
+      <p>
+        <label for="title_recipe"> Title recipe :</label>
+        <input type="text" name="title_recipe" id="title_recipe" />
+      </p>
+      <p><input type="submit" value="Add to my favourite"/></p>
+    </form>
+
    {% endblock recipe %} 
   </div>
   <div class="right">

@@ -110,6 +110,7 @@ def get_db():
 
 @app.before_request
 def before_request():
+  #g.user = current_user
   g.db = connect_db()
 
 @app.teardown_request
@@ -121,9 +122,10 @@ def teardown_request(exception):
 @app.route('/display_users')
 def display_users():
   cur = g.db.cursor()
-  cur = g.db.execute('SELECT name_user, email_user FROM user ORDER BY id_user ASC')
-  entries = [dict(name_user=row[0], email_user=row[1]) for row in cur.fetchall()]
-  return render_template('display_users.html',entries=entries)
+  cur = g.db.execute('SELECT id_user, name_user, email_user FROM user ORDER BY id_user ASC')
+  entries = [dict(id_user=row[0],name_user=row[1], email_user=row[2]) for row in cur.fetchall()]
+  return render_template('display_users.html',entries=entries, currentpage =\
+  "display_users")
 
 @app.route('/createaccount/', methods=['GET','POST'])
 def createaccount():
@@ -137,7 +139,8 @@ def createaccount():
     (?,?,?)',[request.form['username'],request.form['password'],request.form['email']])
     db.commit()
     flash('Your account was successfully created!')
-    return redirect(url_for('home')) 
+    #return redirect(url_for('home')) 
+    return render_template('index.html',previouspage="createaccount") 
 
 def is_safe_url(target):
   ref_url = urlparse(request.host_url)
@@ -172,6 +175,7 @@ class LoginForm(RedirectForm):
 
 @app.route('/login', methods = ['GET','POST'])
 def login():
+  msg = None
   error = None
   form = LoginForm()
   if request.method == 'POST':
@@ -185,30 +189,59 @@ def login():
         password_user = (?)", [password])
       passwcorrect = c.fetchone()
     else:
-      error = 'Invalid username'
+      return render_template('login.html',error = 'Invalid username')
     if passwcorrect:
+      msg = "Hi %s" % username + ", It's nice to see you!"
       user = User(username,password,'email')
       login_user(user)
-        #session['logged_in'] = True 
+      session['logged_in'] = True 
       flash('Logged in successfully.')
-      return redirect(url_for('home'))
+      #return redirect(url_for('home',msg=msg))
+      return render_template('index.html',msg=msg)
     else:
       error = 'Invalid password'
-  return render_template('login.html',form=form,error=error)
     '''
     next = request.args.get('next')
     if not next_is_valide(next):
       return abort(400)
     return redirect(next or url_for('index'))
     '''
+  return render_template('login.html',form=form,error=error)
 
 @app.route('/logout')
-@login_required
+#@login_required
 def logout():
   logout_user()
+  session['logged_in'] = False
   #session.pop('logged_in', None)
   flash('You were logged out')
   return redirect(url_for('home'))
+
+@app.route('/addfavs', methods=['GET','POST'])
+def add_to_favs():
+  #error = None
+  if not session.get('logged_in'):
+    abort(401)
+  if request.method == 'POST':
+    title_recipe = request.form['title_recipe']
+    c = g.db.execute('SELECT id_recipe FROM recipe WHERE title_recipe =\
+    ?',[title_recipe])
+    idrecipe = c.fetchone()
+    #FIND ID USER
+    iduser = request.form['user_id']
+    #value = "true"
+    #etat = "wish"
+    #INSERT IN DB
+    db = get_db()
+    db.execute('INSERT INTO list_recipe (id_user, id_recipe, etat, favourite) VALUES \
+    (%s,%s,"%s",%s)' % (29,1,"wishe",1))
+    #[iduser],[idrecipe]
+    db.commit()
+    #flash()
+    #TO CHANGE LATER
+    return redirect(url_for('home'))
+
+
 
 #Route defining Level #1
 @app.route('/')

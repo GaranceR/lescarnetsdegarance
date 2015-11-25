@@ -14,23 +14,36 @@
     <li><a href="{{ url_for('.fitness')}}">Fitness</a></li>
   </ul>
   <div id="content_main">
-    {% block content_main %}<p>Hi this is the homepage!</p>
+    {% block content_main %}
 
-    {% if current_user.is_authenticated %}
-      Hi {{ current_user.username }} !
-    {%  endif %}
+    <p>This is the homepage!</p>
 
-    {% if not session.logged_in  %}
-    <li><a href="{{ url_for('.createaccount') }}">Create an account</a></li>
-    <li><a href="{{ url_for('.login') }}">Log in</a></li>
-    {% else %}
-    <li><a href="{{ url_for('.logout') }}">Log out</a></li>
+    {% if msg %}
+      <p>{{ msg }}</p>
     {% endif %}
-    <li><a href="{{ url_for('.display_users') }}">Display users</a></li>
+    {#{% if not current_user.is_authenticated %}#}
+    {% if not session.logged_in %}
+    {% if not previouspage == "createaccount" %}
+      <li><a href="{{ url_for('.createaccount') }}">Create an account</a></li>
+    {% endif %}
+    <li><a href="{{ url_for('.login') }}">Log in</a></li>
+    {% endif %}
+
+    {#{% if current_user.is_authenticated %}#}
+    {% if session.logged_in %}
+      {#{% for user in load_user() %}
+       Hi {{ user.username }} !
+      {% endfor%}#}
+      <li><a href="{{ url_for('.logout') }}">Log out</a></li>
+    {% endif %}
+    {% if not currentpage == "display_users"%}
+      <li><a href="{{ url_for('.display_users') }}">Display users</a></li>
+    {% endif %}
     
     {% for message in get_flashed_messages() %}
       <div class = flash>{{ message }}</div>
     {% endfor %}
+
     {% block body %}{% endblock body %}
 
     {% endblock content_main %}
