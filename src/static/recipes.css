@@ -1,8 +1,37 @@
 /* General */
 
 body{
-font-family:"Calibri";
+font-family:"Calibri", "Trebuchet MS", sans-serif;
 }
+
+p, li{
+font-size: 0.9em;
+}
+/* From Flask Tutorial */
+
+a, h1, h2{
+/*color: rgb(247,83,82);*/
+color: rgb(132,212,53);
+}
+
+h1,h2{
+font-family: 'Georgia', serif;
+}
+
+h1{
+font-size: 1.8em;
+border-bottom: 2px solid #eee; 
+}
+
+h2{
+font-size: 1.2em;
+}
+
+.entries {list-style:none; margin:0; padding: 0;}
+.entries li {margin:0.8em 1.2em;}
+
+.flash {background: #cee5F5; padding: 0.5em; border: 1px solid #aacbe2;}
+.error {background:#f0d6d6; padding:0.5em:}
 
 /* Menus */
 
