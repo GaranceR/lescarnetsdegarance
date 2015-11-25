@@ -21,6 +21,7 @@
     {% if msg %}
       <p>{{ msg }}</p>
     {% endif %}
+
     {#{% if not current_user.is_authenticated %}#}
     {% if not session.logged_in %}
     {% if not previouspage == "createaccount" %}
@@ -31,9 +32,13 @@
 
     {#{% if current_user.is_authenticated %}#}
     {% if session.logged_in %}
-      {#{% for user in load_user() %}
-       Hi {{ user.username }} !
-      {% endfor%}#}
+    {#{% if previouspage == "login" %}#}
+      {% if user %}
+      {#{% for user in load_user() %#}
+         <p>Hi {{ user.username }}, it's nice to see you !</p>
+       <!-- works!!!! only coming from login -->
+      {#{% endfor%}#}
+      {% endif %}
       <li><a href="{{ url_for('.logout') }}">Log out</a></li>
     {% endif %}
     {% if not currentpage == "display_users"%}

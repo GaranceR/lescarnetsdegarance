@@ -175,7 +175,6 @@ class LoginForm(RedirectForm):
 
 @app.route('/login', methods = ['GET','POST'])
 def login():
-  msg = None
   error = None
   form = LoginForm()
   if request.method == 'POST':
@@ -191,13 +190,12 @@ def login():
     else:
       return render_template('login.html',error = 'Invalid username')
     if passwcorrect:
-      msg = "Hi %s" % username + ", It's nice to see you!"
       user = User(username,password,'email')
       login_user(user)
       session['logged_in'] = True 
       flash('Logged in successfully.')
       #return redirect(url_for('home',msg=msg))
-      return render_template('index.html',msg=msg)
+      return render_template('index.html',user=user,previouspage="login")
     else:
       error = 'Invalid password'
     '''
@@ -228,18 +226,22 @@ def add_to_favs():
     ?',[title_recipe])
     idrecipe = c.fetchone()
     #FIND ID USER
-    iduser = request.form['user_id']
+    #iduser = request.form['user_id']
+    #iduser = current_user.get_id(current_user)
     #value = "true"
     #etat = "wish"
     #INSERT IN DB
     db = get_db()
     db.execute('INSERT INTO list_recipe (id_user, id_recipe, etat, favourite) VALUES \
-    (%s,%s,"%s",%s)' % (29,1,"wishe",1))
+    (%s,%s,"%s",%s)' % (30,1,"to try",1))
     #[iduser],[idrecipe]
     db.commit()
     #flash()
     #TO CHANGE LATER
-    return redirect(url_for('home'))
+    #return redirect(url_for('home'))
+    #print iduser
+    return render_template('index.html')
+    #,msg=iduser)
 
 
 
@@ -247,6 +249,9 @@ def add_to_favs():
 @app.route('/')
 @app.route('/home/')
 def home():
+  #user = None
+  #if current_user.is_authenticated:
+    #current_user = true;
   return render_template('index.html')
 
 @app.route('/recipes/')
