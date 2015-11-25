@@ -7,10 +7,47 @@ import os
 from logging.handlers import RotatingFileHandler
 from flask import Flask, redirect, url_for, abort, request, render_template, \
 session, g, flash
+from flask.ext.login import LoginManager
 from contextlib import closing
 
 #Create the app
 app = Flask(__name__)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+#Login
+
+@login_manager.user_loader
+def load_user(id_user):
+  return User.get(id_user)
+
+class User(db.Model):
+  __tablename__ = "user"
+  id = db.Column('id_user',db.Integer,primary_key=True)
+  username = db.Column('name_user',db.String(30),unique=True,index=True)
+  password = db.Column('password_user',db.String(30))
+  email = db.Column('email_user',db.String(30),unique=True,index=True)
+
+  def __init__(self,username,password,email):
+    self.username = username
+    self.password = password
+    self.email = email
+
+  def is_authenticated(self):
+    return True
+
+  def is_active(self):
+    return True
+
+  def is_anonymous(self):
+    return False
+
+  def get_id(self):
+    return unicode(self.id)
+
+  def __repr__(self):
+    return '<User %r>' % (self.username)
 
 #Functions
 
