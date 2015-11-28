@@ -25,9 +25,10 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(id):
-  c = g.db.execute("SELECT id_user FROM user WHERE id_user = (?)", [id])
-  userid =c.fetchone()
-  return userid
+#was useless?? take id as a parameter to find the id ....
+  c = g.db.execute("SELECT * FROM user WHERE id_user = (?)", [id])
+  user = c.fetchone()
+  return user
 
 class User(UserMixin): 
 
@@ -107,6 +108,17 @@ def get_db():
   if not hasattr(g, 'sqlite_db'):
     g.sqlite_db = connect_db()
   return g.sqlite_db
+
+def query_db(query, args=(), one = False):
+  cur = g.db.execute(query, args)
+  rv = [dict((cur.description[idx][0], value)
+    for idx, value in enumerate(row)) for row in cur.fetchall()]
+  return (rv[0] if rv else None) if one else rv
+
+def get_recipe(id):
+  query = 'SELECT * FROM recipe WHERE id_recipe = ?'
+  recipe = query_db(query, [id], one = True)
+  return recipe
 
 @app.before_request
 def before_request():
@@ -217,42 +229,43 @@ def logout():
 
 @app.route('/addfavs', methods=['GET','POST'])
 def add_to_favs():
-  #error = None
   if not session.get('logged_in'):
     abort(401)
   if request.method == 'POST':
-    title_recipe = request.form['title_recipe']
-    c = g.db.execute('SELECT id_recipe FROM recipe WHERE title_recipe =\
-    ?',[title_recipe])
-    idrecipe = c.fetchone()
-    #FIND ID USER
-    #iduser = request.form['user_id']
+    #FIND ID CURRENT USER
     #iduser = current_user.get_id(current_user)
-    #value = "true"
-    #etat = "wish"
     #INSERT IN DB
     db = get_db()
     db.execute('INSERT INTO list_recipe (id_user, id_recipe, etat, favourite) VALUES \
-    (%s,%s,"%s",%s)' % (30,1,"to try",1))
+    (%s,%s,"%s",%s)' % (1,1,"love it",1))
     #[iduser],[idrecipe]
     db.commit()
-    #flash()
-    #TO CHANGE LATER
-    #return redirect(url_for('home'))
-    #print iduser
-    return render_template('index.html')
-    #,msg=iduser)
-
+    #Exemple of Pancakes
+    id = 1
+    recipe = get_recipe(id)
+    flash('Thanks, this recipe has been added to your favourite!')
+    #For now only Example of Pancakes working
+    return render_template('pancakes.html',recipe=recipe)
 
 
 #Route defining Level #1
 @app.route('/')
 @app.route('/home/')
 def home():
+  msg = None
+  #if 'username' in session:
+    #msg='Logged in as %s' % escape(session['username'])
+  #else:
+    #msg='You are not logged in'
   #user = None
   #if current_user.is_authenticated:
     #current_user = true;
-  return render_template('index.html')
+  user = load_user(1)
+  c = g.db.execute('SELECT name_user FROM user WHERE id_user = 1')
+  #[user.id_user])
+  #useless?
+  username = c.fetchone()
+  return render_template('index.html', msg=msg, user=user, currentpage="home")
 
 @app.route('/recipes/')
 def recipes():
@@ -326,11 +339,18 @@ def amsterdam():
 #Route defining Level #3 Breakfast
 
 @app.route('/recipes/breakfast/pancakes/')
-def pancakes():
-  ingredients = ['2 eggs', '1 cup oats', '200g yoghurt']
-  toppings = ['Banana','Blueberries','Fig','Raspberries','Honey','Chocolate','Nuts']
-  return render_template('pancakes.html',ingredients=ingredients,
-  toppings=toppings) 
+@app.route('/recipes/breakfast/pancakes/<int:id>')
+def pancakes(id=None):
+  #ingredients = ['2 eggs', '1 cup oats', '200g yoghurt']
+  #toppings = ['Banana','Blueberries','Fig','Raspberries','Honey','Chocolate','Nuts']
+  recipe = get_recipe(id)
+  #only working for one example so far
+  #id = recipe['id_recipe']
+  #query = 'SELECT * FROM recipe'
+  return render_template('pancakes.html', recipe = recipe)
+  #return render_template('pancakes.html',ingredients=ingredients,
+  #toppings=toppings, recipe=recipe)
+
   
 #Route defining Level #3 Snacks
 

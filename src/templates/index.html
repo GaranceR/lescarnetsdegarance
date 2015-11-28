@@ -15,9 +15,9 @@
   </ul>
   <div id="content_main">
     {% block content_main %}
-
-    <p>This is the homepage!</p>
-
+    {% if currentpage == "home" %}
+      <p>This is the homepage!</p>
+    {% endif %} 
     {% if msg %}
       <p>{{ msg }}</p>
     {% endif %}
@@ -35,7 +35,8 @@
     {#{% if previouspage == "login" %}#}
       {% if user %}
       {#{% for user in load_user() %#}
-         <p>Hi {{ user.username }}, it's nice to see you !</p>
+         <p>Hi {% if user.username %}{{ user.username }}{%endif%}
+         {%if user.name_user%}{{user.name_user}}{%endif%}, it's nice to see you !</p>
        <!-- works!!!! only coming from login -->
       {#{% endfor%}#}
       {% endif %}
