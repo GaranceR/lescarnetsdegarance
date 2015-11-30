@@ -7,54 +7,11 @@ import os
 from logging.handlers import RotatingFileHandler
 from flask import Flask, redirect, url_for, abort, request, render_template, \
 session, g, flash
-from flask.ext.login import LoginManager, UserMixin, login_required,\
-login_user, logout_user, current_user
-from flask.ext.wtf import Form
-
-from wtforms import TextField, HiddenField
 from contextlib import closing
-
-from urlparse import urlparse, urljoin
 
 #Create the app
 app = Flask(__name__)
-
-#Login
-login_manager = LoginManager()
-login_manager.init_app(app)
-
-@login_manager.user_loader
-def load_user(id):
-#was useless?? take id as a parameter to find the id ....
-  c = g.db.execute("SELECT * FROM user WHERE id_user = (?)", [id])
-  user = c.fetchone()
-  return user
-
-class User(UserMixin): 
-
-  def __init__(self,username,password,email):
-    self.username = username
-    self.password = password
-    self.email = email
-
-  def is_authenticated(self):
-    return True
-
-  def is_active(self):
-    return True
-
-  def is_anonymous(self):
-    return False
-
-  #might be useless? since we have load_user() ?
-  def get_id(self):
-    c = g.db.execute('SELECT id_user FROM user WHERE name_user = (?)',\
-    [self.username])
-    id = c.fetchone()
-    return unicode(id)
-
-  def __repr__(self):
-    return '<User %r>' % (self.username)
+#db_location = 'var/database.db'
 
 #Functions
 
@@ -70,14 +27,13 @@ def init(app):
     app.config['url'] = config.get("config","url")
 
     app.config['database'] = config.get("config","database")
+    app.config['secret_key'] = config.get("config","secret_key")
     app.config['username'] = config.get("config","username")
     app.config['password'] = config.get("config","password")
 
     app.config['log_file'] = config.get("logging","name")
     app.config['log_location'] = config.get("logging","location")
     app.config['log_level'] = config.get("logging","level")
-    
-    app.secret_key = config.get("config","secret_key")
 
   except:
     print "Could not read configs from:", config_location
@@ -97,32 +53,28 @@ def connect_db():
   conn = sqlite3.connect(app.config['database'])
   conn.row_factory = sqlite3.Row
   return conn
+  #return sqlite3.connect(app.config['database'])
+
+#def get_db():
+  #db = getattr(g, 'db', None)
+  #if db is None:
+   # db = sqlite3.connect(db.location)
+    #g.db = db
+  #return db
+  #if not hasattr(g, 'sqlite_db'):
+   #   g.sqlite_db = connect_db()
+   # return g.sqlite_db
 
 def init_db():
   with closing(connect_db()) as db:
+  #with app.app_context():
+  #db = get_db()
     with app.open_resource('schema.sql', mode='r') as f:
       db.cursor().executescript(f.read())
     db.commit()
 
-def get_db():
-  if not hasattr(g, 'sqlite_db'):
-    g.sqlite_db = connect_db()
-  return g.sqlite_db
-
-def query_db(query, args=(), one = False):
-  cur = g.db.execute(query, args)
-  rv = [dict((cur.description[idx][0], value)
-    for idx, value in enumerate(row)) for row in cur.fetchall()]
-  return (rv[0] if rv else None) if one else rv
-
-def get_recipe(id):
-  query = 'SELECT * FROM recipe WHERE id_recipe = ?'
-  recipe = query_db(query, [id], one = True)
-  return recipe
-
 @app.before_request
 def before_request():
-  #g.user = current_user
   g.db = connect_db()
 
 @app.teardown_request
@@ -131,141 +83,25 @@ def teardown_request(exception):
   if db is not None:
     db.close()
 
+#Route defining Level #1
+
 @app.route('/display_users')
 def display_users():
   cur = g.db.cursor()
-  cur = g.db.execute('SELECT id_user, name_user, email_user FROM user ORDER BY id_user ASC')
-  entries = [dict(id_user=row[0],name_user=row[1], email_user=row[2]) for row in cur.fetchall()]
-  return render_template('display_users.html',entries=entries, currentpage =\
-  "display_users")
+  cur.execute('INSERT INTO user (name_user, password_user, email_user)\
+  VALUES ("test","pswd","email_test"))
+  g.db.commit()
+  cur = g.db.execute('SELECT name_user, email_user FROM user ORDER BY id_user ASC')
+  #cur.execute('INSERT INTO user (name_user, password_user, email_user) VALUES \
+  #(?,?,?)',
+  #[request.form['username'],request.form['password'],request.form['email']])
+  entries = [dict(name_user=row[0], email_user=row[1]) for row in cur.fetchall()]
+  return render_template('index.html',entries=entries)
 
-@app.route('/createaccount/', methods=['GET','POST'])
-def createaccount():
-  if request.method == 'GET':
-    return render_template('createaccount.html')
-  #error = None
-  if request.method == 'POST':
-    db = get_db()
-    #INSERT in DB
-    db.execute('INSERT INTO user (name_user, password_user, email_user) VALUES \
-    (?,?,?)',[request.form['username'],request.form['password'],request.form['email']])
-    db.commit()
-    flash('Your account was successfully created!')
-    #return redirect(url_for('home')) 
-    return render_template('index.html',previouspage="createaccount") 
-
-def is_safe_url(target):
-  ref_url = urlparse(request.host_url)
-  test_url = urlparse(urljoin(request.host_url, target))
-  return test_url.scheme in ('http','https') and \
-    ref_url.netloc == test_url.netloc
-
-def get_redirect_target():
-  for target in request.args.get('next'), request.referrer:
-    if not target:
-      continue
-    if is_safe_url(target):
-      return target
-
-class RedirectForm(Form):
-  next = HiddenField()
-
-  def __init__(self, *args, **kwargs):
-    Form.__init__(self, *args, **kwargs)
-    if not self.next.data:
-      self.next.data = get_redirect_target() or ''
-
-  def redirect(self, endpoint='index', **values):
-    if is_safe_url(self.next.data):
-      return redirect(self.next.data)
-    target = get_redirect_target()
-    return redirect(target or url_for(endpoint, **values))
-
-class LoginForm(RedirectForm):
-  username = TextField('Username')
-  password = TextField('Password')
-
-@app.route('/login', methods = ['GET','POST'])
-def login():
-  error = None
-  form = LoginForm()
-  if request.method == 'POST':
-    username = request.form['username']
-    password = request.form['password']
-    #if form.validate_on_submit():
-    c = g.db.execute("SELECT name_user FROM user WHERE name_user = (?)",[username])
-    userexists = c.fetchone()
-    if userexists: 
-      c = g.db.execute("SELECT password_user FROM user WHERE \
-        password_user = (?)", [password])
-      passwcorrect = c.fetchone()
-    else:
-      return render_template('login.html',error = 'Invalid username')
-    if passwcorrect:
-      user = User(username,password,'email')
-      login_user(user)
-      session['logged_in'] = True 
-      flash('Logged in successfully.')
-      #return redirect(url_for('home',msg=msg))
-      return render_template('index.html',user=user,previouspage="login")
-    else:
-      error = 'Invalid password'
-    '''
-    next = request.args.get('next')
-    if not next_is_valide(next):
-      return abort(400)
-    return redirect(next or url_for('index'))
-    '''
-  return render_template('login.html',form=form,error=error)
-
-@app.route('/logout')
-#@login_required
-def logout():
-  logout_user()
-  session['logged_in'] = False
-  #session.pop('logged_in', None)
-  flash('You were logged out')
-  return redirect(url_for('home'))
-
-@app.route('/addfavs', methods=['GET','POST'])
-def add_to_favs():
-  if not session.get('logged_in'):
-    abort(401)
-  if request.method == 'POST':
-    #FIND ID CURRENT USER
-    #iduser = current_user.get_id(current_user)
-    #INSERT IN DB
-    db = get_db()
-    db.execute('INSERT INTO list_recipe (id_user, id_recipe, etat, favourite) VALUES \
-    (%s,%s,"%s",%s)' % (1,1,"love it",1))
-    #[iduser],[idrecipe]
-    db.commit()
-    #Exemple of Pancakes
-    id = 1
-    recipe = get_recipe(id)
-    flash('Thanks, this recipe has been added to your favourite!')
-    #For now only Example of Pancakes working
-    return render_template('pancakes.html',recipe=recipe)
-
-
-#Route defining Level #1
 @app.route('/')
 @app.route('/home/')
 def home():
-  msg = None
-  #if 'username' in session:
-    #msg='Logged in as %s' % escape(session['username'])
-  #else:
-    #msg='You are not logged in'
-  #user = None
-  #if current_user.is_authenticated:
-    #current_user = true;
-  user = load_user(1)
-  c = g.db.execute('SELECT name_user FROM user WHERE id_user = 1')
-  #[user.id_user])
-  #useless?
-  username = c.fetchone()
-  return render_template('index.html', msg=msg, user=user, currentpage="home")
+  return render_template('index.html')
 
 @app.route('/recipes/')
 def recipes():
@@ -339,15 +175,11 @@ def amsterdam():
 #Route defining Level #3 Breakfast
 
 @app.route('/recipes/breakfast/pancakes/')
-@app.route('/recipes/breakfast/pancakes/<int:id>')
-def pancakes(id=None):
-  #ingredients = ['2 eggs', '1 cup oats', '200g yoghurt']
-  #toppings = ['Banana','Blueberries','Fig','Raspberries','Honey','Chocolate','Nuts']
-  recipe = get_recipe(id)
-  return render_template('pancakes.html', recipe = recipe)
-  #return render_template('pancakes.html',ingredients=ingredients,
-  #toppings=toppings, recipe=recipe)
-
+def pancakes():
+  ingredients = ['2 eggs', '1 cup oats', '200g yoghurt']
+  toppings = ['Banana','Blueberries','Fig','Raspberries','Honey','Chocolate','Nuts']
+  return render_template('pancakes.html',ingredients=ingredients,
+  toppings=toppings) 
   
 #Route defining Level #3 Snacks
 
@@ -418,6 +250,45 @@ def private():
   so redirect to login URL"""
   return redirect(url_for('login'))
 
+@app.route('/createaccount/', methods=['GET','POST'])
+def createaccount():
+  #error = None
+  if request.method == 'POST':
+    cur = g.db.cursor()
+    #INSERT in DB
+    cur.execute('INSERT INTO user (name_user, password_user, email_user) VALUES \
+    (?,?,?)',[request.form['username'],request.form['password'],request.form['email']])
+    g.db.commit()
+    #flash('Your account was successfully created!')
+    #return redirect(url_for('display_users'))
+    #return render_template()
+  return render_template('createaccount.html')
+
+@app.route('/login', methods=['POST','GET'])
+def login():
+  error = None
+  if request.method == 'POST':
+    print request.form #for me to see it in the console
+    username = request.form['username']
+    password = request.form['password']
+
+  query = 'SELECT * FROM user WHERE name_user = ?'
+  testname = query_db(query, [request.form['username']])
+  # method query_db!!
+  #if testname:
+
+ # else:
+    #error = "Sorry there is no account with this username. Make sure you spelt it right"
+    #elif password doesnt match
+    #error = "Sorry, your password isn't the one you provided. Try again."
+  msg = "Hi %s" % username + "<br/>It's nice to see you!"
+  return msg #return a template instead
+    #else:
+    #session['logged in'] = True
+    #flash('You just logged in')
+    #return redirect(url_for('home'))
+
+  return render_template('login.html',error=error)
 
 #Error handling
 
@@ -491,7 +362,6 @@ if __name__ == "__main__":
   init(app)
   logs(app)
   app.run(
-    debug=app.config['debug'],
     host=app.config['ip_address'],
     port=int(app.config['port'])
     )

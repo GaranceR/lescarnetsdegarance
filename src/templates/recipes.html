@@ -1,6 +1,8 @@
-  {% extends "index.html" %}
-  {% block title %}Recipes - {% endblock %}
-  {% block content_main %}
+{% extends "index.html" %}
+{% block title %}Recipes - {% endblock %}
+
+{% block content_main %}
+
   <ul class="menu" id="menu_recipes">
     <li><a href="{{ url_for('.breakfast')}}">Breakfast</a></li>
     <li><a href="{{ url_for('.lunch')}}">Lunch</a></li>
@@ -8,15 +10,25 @@
     <li><a href="{{ url_for('.dinner')}}">Dinner</a></li>
     <li><a href="{{ url_for('.ingredients')}}">Ingredients</a></li>
   </ul>
-  <div id="content">
 
+{{super()}}
+
+<div id="content">
 {% block content %}
+
    {% if currentpage == "recipes" %}
    <p> Here you can find a lot of cool recipes </p>
    {% else %}
   <div class="left">
-  <h1> {% block title_recipe %}{% endblock title_recipe %} </h1>
+  <h1> 
+    {% block title_recipe %}
+      {% if recipe %}
+        {{recipe.title_recipe }}
+      {% endif %}
+    {% endblock title_recipe %}
+  </h1>
    {% block recipe %}
+
    {% if currentpage == "sweet" %}
    <h2>Base</h2>
     <ul>
@@ -31,26 +43,70 @@
       {% endfor %}
     </ul>
    {% else %}
+
    <h2>Ingredients</h2>
+    {% if recipe %}
     <ul>
+      <li>
+        {{ recipe.ingredients_recipe }}
+      </li>
+    </ul>
+    {% endif %}
+
+    <ul>
+    <!-- Old version with passing collections -->
+    {% if ingredients %}
       {% for item in ingredients %}
         <li>{{ item }}</li>
-      {% endfor %}
+      {% endfor %} 
+    {% endif %}
     </ul>
-    {% block addings %}{% endblock addings %}
-   {% endif %}
+
+      {% if recipe %}
+      {% if recipe.addings_recipe %}
+      {% block addings %}
+      <h2>Toppings</h2>
+      <p>
+        <ul>
+          <li>{{recipe.addings_recipe}}</li>
+          <!-- Old version with passing collections
+          {% for item in toppings %}
+            <li>{{ item }}</li>
+          {% endfor %} -->
+        </ul>
+      </p>
+      {% endblock addings %}
+    {% endif %} {# recipe.addings_recipe #}
+    {% endif %} {# recipe #}
+   {% endif %} {# currentpage == "sweet" #}
     <h2>Directions</h2>
-    <p>{% block directions %}{% endblock directions %}</p>
+    <p>
+    {% block directions %}
+      {% if recipe %}
+      <ul><li>{{ recipe.directions_recipe }}</li></ul>
+      {% endif %}
+    {% endblock directions %}
+    </p>
+    {% if recipe %}
+    <form action="{{ url_for('add_to_favs')}}" method="post" name="form">
+      <p><input type="submit" value="Add to my favourite ♥"/></p>
+    </form>
+    {% endif %}
+    {% for message in get_flashed_messages() %}
+      <div class = flash>{{ message }}</div>
+    {% endfor %}
    {% endblock recipe %} 
   </div>
+
   <div class="right">
     <p>
       <img class="main_picture" {% block img_attr %} {% endblock img_attr %}/>
     </p>
   </div>
    {% endif %}
-{% endblock %}
+{% endblock content %}
   
+
   </div>
   {% endblock content_main %}
 
