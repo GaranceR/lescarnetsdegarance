@@ -344,9 +344,6 @@ def pancakes(id=None):
   #ingredients = ['2 eggs', '1 cup oats', '200g yoghurt']
   #toppings = ['Banana','Blueberries','Fig','Raspberries','Honey','Chocolate','Nuts']
   recipe = get_recipe(id)
-  #only working for one example so far
-  #id = recipe['id_recipe']
-  #query = 'SELECT * FROM recipe'
   return render_template('pancakes.html', recipe = recipe)
   #return render_template('pancakes.html',ingredients=ingredients,
   #toppings=toppings, recipe=recipe)

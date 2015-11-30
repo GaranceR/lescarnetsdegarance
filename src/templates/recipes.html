@@ -20,7 +20,13 @@
    <p> Here you can find a lot of cool recipes </p>
    {% else %}
   <div class="left">
-  <h1> {% block title_recipe %} {% if recipe %}{{recipe.title_recipe }}{% endif %}{% endblock title_recipe %} </h1>
+  <h1> 
+    {% block title_recipe %}
+      {% if recipe %}
+        {{recipe.title_recipe }}
+      {% endif %}
+    {% endblock title_recipe %}
+  </h1>
    {% block recipe %}
 
    {% if currentpage == "sweet" %}
